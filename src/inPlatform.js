@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
-import { randomId, guid } from './utils';
+import { randomId, pageId } from './utils';
 
 const websites = [
   { name: '163.com', data: [{ node: '.gg300', divH: 400 }, { node: '.post_body', divH: 128, style: 'margin-bottom:20px;margin-top:20px;' }] },
@@ -44,7 +44,7 @@ function insert(websit, uuid) {
         cpId: CP_ID,
         divW,
         divH,
-        pageId: `${guid()}`,
+        pageId,
         device: window.device6xw4qsx || '',
         adWay: 'extends',
         title: document.title || '',
@@ -92,7 +92,7 @@ function inMobile(uuid) {
       divW: 640,
       divH: 96,
       n: 3,
-      pageId: `${guid()}`,
+      pageId,
       device: window.device6xw4qsx || '',
       adWay: 'extends',
       title: document.title || '',

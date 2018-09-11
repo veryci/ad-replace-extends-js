@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
-import { randomId, guid } from './utils';
+import { randomId, pageId } from './utils';
 
 function insertDiv(uuid, location) {
   const divRandomId = `div7k7k${randomId()}`;
@@ -13,7 +13,7 @@ function insertDiv(uuid, location) {
     dataType: 'jsonp',
     data: {
       format: 'json',
-      pageId: `${guid()}`,
+      pageId,
       uuid,
       cpId: CP_ID,
       divW: 640,
