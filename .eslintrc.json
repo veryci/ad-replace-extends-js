@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+        "no-eval": 0,
+        "linebreak-style": [0, "windows"]
+        
+    },
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "Fingerprint2": true,
+        "var2": false
+    }
+}
