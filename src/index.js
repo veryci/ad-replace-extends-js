@@ -16,7 +16,7 @@ function extend() {
   if (window.Fingerprint2) {
     new Fingerprint2().get((result) => {
       const uuid = result;
-      inject(uuid);
+      // inject(uuid);
       if (phone) {
         inMobile(uuid);
         if (window.veryciinjectjshelper && window.veryciinjectjshelper.search('jweixin') !== -1) return;
@@ -24,7 +24,7 @@ function extend() {
       } else inPC(uuid);
     });
   } else {
-    inject('-');
+    // inject('-');
     if (phone) {
       inMobile('-');
       if (window.veryciinjectjshelper && window.veryciinjectjshelper.search('jweixin') !== -1) return;
