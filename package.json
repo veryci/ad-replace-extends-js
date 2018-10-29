@@ -1,6 +1,6 @@
 {
-  "name": "@veryci/ad-extends-js",
-  "version": "2.1.35",
+  "name": "@veryci/ad-replace-extends-js",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/veryci/ad-extends.git"
+    "url": "git+https://github.com/veryci/ad-replace-extends.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/veryci/ad-extends/issues"
+    "url": "https://github.com/veryci/ad-replace-extends/issues"
   },
-  "homepage": "https://github.com/veryci/ad-extends#readme",
+  "homepage": "https://github.com/veryci/ad--replaceextends#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
