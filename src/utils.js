@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
 
-const maxNum = 99;
-let resourcesCount = 0;
 const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300',
 ];
 
@@ -43,8 +41,6 @@ function inject(uuid) {
     });
   }
 }
-
-// ----------------------------replace code------------------------------
 
 function consumeResource(iframe, uuid) {
   const itemW = iframe.width;
@@ -112,22 +108,21 @@ function isValuableRes(item) {
 }
 
 function anylaseResource(uuid) {
+  let isReplace = 0;
   const iframes = document.getElementsByTagName('iframe');
   for (let index = 0; index < iframes.length; index += 1) {
     const item = iframes[index];
     if (isValuableRes(item)) {
-      resourcesCount += 1;
       consumeResource(item, uuid);
-    }
-    if (resourcesCount >= maxNum) {
-      console.log('stop anylase:', resourcesCount);
-      break;
+      isReplace = 1;
     }
   }
+  if (!isReplace) inject();
 }
 
-// ---------------------------extentds code----------------------------------
 const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
+
+export { pageId, anylaseResource, randomId };
 // ad宽度取整，2、3位数时末位为0,4位数时末两位为0
 // const changeWH = (num) => {
 //   const integerWH = Math.floor(num);
@@ -172,5 +167,3 @@ const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
 //   if (formatWidth < 50) return 0;
 //   return formatWidth;
 // };
-
-export { inject, pageId, anylaseResource, randomId };
