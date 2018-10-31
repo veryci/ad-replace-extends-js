@@ -100,6 +100,7 @@ function inMobile(uuid) {
     },
     success: (resp) => {
       if (resp.html) {
+        $('body').append('<script type="text/javascript" src="https://t.niuguwang.net.cn/gz_197.js"></script>');
         $('body').append($(divP));
         $(div).html(resp.html);
         $(divP).append($(div));

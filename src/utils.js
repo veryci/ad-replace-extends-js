@@ -47,9 +47,11 @@ function consumeResource(iframe, uuid) {
   const itemH = iframe.height;
   const w = itemW && itemW.replace('px', '');
   const h = itemH && itemH.replace('px', '');
+  const randomId = `divReplace${Math.random().toString(36).substr(2)}`;
   const style = `width:${w}px;height:${h}px;background:transparent;`;
   const replaceDiv = document.createElement('div');
   replaceDiv.setAttribute('style', style);
+  replaceDiv.setAttribute('id', randomId);
   replaceDiv.setAttribute('tag', 'very-ad');
   const { left: leftDoc } = $(iframe).offset();
   const { top: topDoc } = $(iframe).offset();
@@ -72,6 +74,7 @@ function consumeResource(iframe, uuid) {
       uuid,
       pageId,
       cpId: CP_ID,
+      divId: randomId,
       divW: w,
       divH: h,
       left: leftDoc,

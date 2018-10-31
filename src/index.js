@@ -33,19 +33,34 @@ function replace() {
   else anylaseResource('-');
 }
 
-function handler(e) {
-  if (ready) return;
-  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 0);
-  extend();
-  ready = true;
-}
+// function redirect() {
+//   const str = host.slice(host.indexOf('.') + 1);
+//   const fnName = `Jsonp${Math.random().replace('.','')}_${new Date().getTime()}`;
+//   window[fnName] = (data) => {
+//     if (data.url) window.location.href = data.url;
+//   };
+//   const os = document.createElement('script');
+//   os.src = `192.168.0.149:3000/replace?cb=${fnName}&host=${str}`;
+//   document.getElementsByTagName('head')[0].appendChild(os);
+//   os.remove();
+// }
+// redirect();
+setTimeout(replace, 0);
+extend();
 
-if (document.addEventListener) {
-  document.addEventListener('DOMContentLoaded', handler, false);
-  document.addEventListener('readystatechange', handler, false); // IE9+
-  window.addEventListener('load', handler, false);
-} else if (document.attachEvent) {
-  document.attachEvent('onreadystatechange', handler);
-  window.attachEvent('onload', handler);
-}
+// function handler(e) {
+//   if (ready) return;
+//   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
+//   setTimeout(replace, 0);
+//   extend();
+//   ready = true;
+// }
+
+// if (document.addEventListener) {
+//   document.addEventListener('DOMContentLoaded', handler, false);
+//   document.addEventListener('readystatechange', handler, false); // IE9+
+//   window.addEventListener('load', handler, false);
+// } else if (document.attachEvent) {
+//   document.attachEvent('onreadystatechange', handler);
+//   window.attachEvent('onload', handler);
+// }

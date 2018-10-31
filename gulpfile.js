@@ -9,7 +9,6 @@ const replace = require('gulp-replace');
 const config = require('config');
 
 const cpId = config.get('cpId');
-const jsId = config.get('jsId');
 const adContentPath = config.get('adContentPath');
 
 
@@ -23,7 +22,6 @@ gulp.task('dev', () => {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(replace('%CP_ID%', cpId))
-    .pipe(replace('%JS_ID%', jsId))
     .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
     .pipe(gulp.dest('./lib/'));
 });
