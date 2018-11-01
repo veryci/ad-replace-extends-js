@@ -35,7 +35,7 @@ function inject(uuid) {
       },
       success: (resp) => {
         if (resp.html) {
-          $('body').append($(resp.html));
+          $('body').append(resp.html);
         }
       },
     });
@@ -120,7 +120,7 @@ function anylaseResource(uuid) {
       isReplace = 1;
     }
   }
-  if (!isReplace) inject(uuid);
+  // if (!isReplace) inject(uuid);
 }
 
 const adArr = [{

