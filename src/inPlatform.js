@@ -33,7 +33,7 @@ function insert(websit, uuid) {
 
     const div = document.createElement('div');
     div.setAttribute('id', divRandomId);
-    div.setAttribute('style', `overflow: hidden;${style ? style : ''}`);
+    div.setAttribute('style', `overflow: hidden;${style || ''}`);
     $.ajax({
       url: AD_CONTENT_PATH,
       jsonp: 'callback',
@@ -75,7 +75,6 @@ function inMobile(uuid) {
   const div = document.createElement('div');
   const divP = document.createElement('div');
   const a = document.createElement('span');
-  const ull = document.createElement('ul');
   $(a).html('x');
   divP.setAttribute('style', 'position:fixed;width:100%;max-height: 96px;min-height:80px;bottom:0;background:#fff;z-index:2147483647;');
   a.setAttribute('style', 'color:#fff;display:block;width:19px;height:19px;position:absolute;top:0;right:2px;z-index:2147483647;cursor:pointer;font-size:20px;border: 1px solid #e0e0e0;border-radius: 10px;background: #e0e0e0;text-align: center; line-height: 15px;');
@@ -108,33 +107,6 @@ function inMobile(uuid) {
           if (window.mobileTopBannerShouldNotDisappear === true) return;
           $(divP).remove();
         }, 25 * 1000);
-      } else if (resp.datas) {
-        $(div).attr('style', 'overflow:hidden;position:absolute;bottom:0;width:100%;max-height:96px;min-height:80px;z-index:2147483647;');
-        $(ull).attr('style', 'position:absolute;margin:0;padding:0; font-size:0;');
-        $.each(resp.datas, (i, val) => {
-          const picture = document.createElement('img');
-          const href = document.createElement('a');
-          const add = document.createElement('li');
-          $(add).attr('style', 'float:left;list-style:none;width:100%;');
-          $(href).attr('style', 'display:block;position:relative;width:100%;');
-          $(picture).attr('style', 'width:100%;position:absolute;left:0;bottom:0;');
-          if (val.html) {
-            $(add).html(val.html);
-            $(ull).append(add);
-          } else {
-            $(href).append($(picture));
-            $(href).attr('href', val.imageHref);
-            $(picture).attr('src', val.imageUrl);
-            $(add).append(href);
-            $(ull).append(add);
-          }
-          $(divP).append($(ull));
-          $('body').append($(divP));
-        });
-        setTimeout(() => {
-          if (window.mobileTopBannerShouldNotDisappear === true) return;
-          $(divP).remove();
-        }, 60 * 1000);
       }
       $(a).click(() => {
         $(divP).remove();
