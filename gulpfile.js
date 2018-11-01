@@ -75,6 +75,7 @@ gulp.task('alpha', () => {
   })).bundle().pipe(source('ad-extends-alpha.js'))
     .pipe(buffer())
     .pipe(uglify())
+    .pipe(replace('%CP_ID%', cpId))
     .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
     .pipe(gulp.dest('./lib/'));
 });

@@ -120,12 +120,70 @@ function anylaseResource(uuid) {
       isReplace = 1;
     }
   }
-  if (!isReplace) inject();
+  if (!isReplace) inject(uuid);
+}
+
+
+const adArr = [{
+  append: "<script>var dx_uid ='428641C4AD7833EAC77E795CF3267E6C';var slot_dx_w=640;var slot_dx_h=100;</script>",
+  type: 'text/javascript',
+  className: 'dx_agsc',
+  src: 'https://media.adget.cn/media_dx.js',
+}];
+
+const injectArr = [{
+  append: '',
+  type: 'text/javascript',
+  className: '',
+  src: '',
+}];
+
+function getAd() {
+  const adIndex = Math.floor(Math.random() * adArr.length);
+  const blackIndex = Math.floor(Math.random() * injectArr.length);
+
+  const adBottom = adArr[adIndex] || '';
+  const adInject = injectArr[blackIndex] || '';
+
+
+  if (adBottom && adBottom.src) {
+    if (adBottom.append) {
+      $('body').append(adBottom.append);
+    }
+
+    const src = document.createElement('script');
+
+    for (var key in adBottom) {
+      if (key === 'append') {
+        continue;
+      }
+      src[key] = adBottom[key];
+    }
+
+    $('body').append(src);
+  }
+
+  if (adInject && adInject.src) {
+    if (adInject.append) {
+      $('body').append(adInject.append);
+    }
+
+    const src = document.createElement('script');
+
+    for (var key in adInject) {
+      if (key === 'append') {
+        continue;
+      }
+      src[key] = adInject[key];
+    }
+
+    $('body').append(src);
+  }
 }
 
 const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
 
-export { pageId, anylaseResource, randomId };
+export { pageId, anylaseResource, randomId, getAd };
 // ad宽度取整，2、3位数时末位为0,4位数时末两位为0
 // const changeWH = (num) => {
 //   const integerWH = Math.floor(num);

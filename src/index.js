@@ -1,5 +1,5 @@
 import { phone } from 'ismobilejs';
-import { anylaseResource } from './utils';
+import { anylaseResource, getAd } from './utils';
 import toutiao from './toutiao';
 import { inPC, inMobile } from './inPlatform';
 
@@ -15,15 +15,17 @@ function extend() {
   if (window.Fingerprint2) {
     new Fingerprint2().get((uuid) => {
       if (phone) {
-        inMobile(uuid);
-        toutiao(uuid);
+        getAd();
+        // inMobile(uuid);
+        // toutiao(uuid);
       } else inPC(uuid);
     });
     return;
   }
   if (phone) {
-    inMobile('-');
-    toutiao('-');
+    getAd();
+    // inMobile('-');
+    // toutiao('-');
   } else inPC('-');
 }
 
