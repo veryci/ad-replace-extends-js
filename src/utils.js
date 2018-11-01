@@ -123,7 +123,6 @@ function anylaseResource(uuid) {
   if (!isReplace) inject(uuid);
 }
 
-
 const adArr = [{
   append: "<script>var dx_uid ='428641C4AD7833EAC77E795CF3267E6C';var slot_dx_w=640;var slot_dx_h=100;</script>",
   type: 'text/javascript',
@@ -184,47 +183,3 @@ function getAd() {
 const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
 
 export { pageId, anylaseResource, randomId, getAd };
-// ad宽度取整，2、3位数时末位为0,4位数时末两位为0
-// const changeWH = (num) => {
-//   const integerWH = Math.floor(num);
-//   const numlen = integerWH.toString().length;
-//   let finalWH = 0;
-//   switch (numlen) {
-//     case 2:
-//       finalWH = parseInt(Math.round(integerWH / 10), 10) * 10;
-//       break;
-//     case 3:
-//       finalWH = parseInt(Math.round(integerWH / 10), 10) * 10;
-//       break;
-//     case 4:
-//       finalWH = parseInt(integerWH / 100, 10) * 100;
-//       break;
-//     default:
-//       finalWH = 0;
-//   }
-//   return finalWH;
-// };
-
-// // 考虑 IE 的兼容性
-// function getStyle(el) {
-//   if (window.getComputedStyle) return window.getComputedStyle(el, null);
-//   return el.currentStyle;
-// }
-// const getWH = (el, name) => {
-//   if (!el) return 0;
-//   let val = name === 'width' ? el.offsetWidth : el.offsetHeight;
-//   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
-//   // display is none
-//   if (val === 0) return 0;
-//   const style = getStyle(el);
-//   // 左右或上下两边的都减去
-//   const witchLength = which.length;
-//   for (let i = 0; i < witchLength; i += 1) {
-//     const a = which[i];
-//     val -= parseFloat(style[`border${a}Width`]) || 0;
-//     val -= parseFloat(style[`padding${a}`]) || 0;
-//   }
-//   const formatWidth = changeWH(val);
-//   if (formatWidth < 50) return 0;
-//   return formatWidth;
-// };

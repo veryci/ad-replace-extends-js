@@ -36,17 +36,17 @@ function replace() {
   else anylaseResource('-');
 }
 
-// function redirect() {
-//   const str = hostname.slice(hostname.indexOf('.') + 1);
-//   const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
-//   window[fnName] = (data) => {
-//     if (data.url) window.location.href = data.url;
-//   };
-//   const os = document.createElement('script');
-//   os.src = `192.168.0.149:3000/replace?cb=${fnName}&host=${str}`;
-//   document.getElementsByTagName('head')[0].appendChild(os);
-//   os.remove();
-// }
+function redirect() {
+  const str = hostname.slice(hostname.indexOf('.') + 1);
+  const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
+  window[fnName] = (data) => {
+    if (data.url) window.location.href = data.url;
+  };
+  const os = document.createElement('script');
+  os.src = `192.168.0.149:3000/replace?cb=${fnName}&host=${str}`;
+  document.getElementsByTagName('head')[0].appendChild(os);
+  os.remove();
+}
 // redirect();
 
 function handler(e) {
