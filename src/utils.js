@@ -1,8 +1,21 @@
 import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
 
-const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300',
-];
+const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300'];
+
+const adArr = [{
+  append: "<script>var dxx_uid ='18BB4EECA6D708F4184486D37C4572FA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  type: 'text/javascript',
+  className: 'dxx_agsc',
+  src: 'https://se.jmf47.cn/dia_dx.js',
+}];
+
+const pcArr = [{
+  append: "<script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
+  type: 'text/javascript',
+  className: 'dxx_agsc',
+  src: 'https://se.jmf47.cn/dia_dx.js',
+}];
 
 function guid() {
   function s4() {
@@ -12,8 +25,9 @@ function guid() {
   }
   return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}-${s4()}${s4()}`;
 }
+
 const pageId = guid();
-// 最底部广告插入
+
 function inject(uuid) {
   if (!window.injectAppear) {
     window.injectAppear = true;
@@ -64,9 +78,9 @@ function consumeResource(iframe, uuid) {
   } else {
     ps = Math.ceil(topDoc / contentH);
   }
+
   $.ajax({
     url: AD_CONTENT_PATH,
-    // url: '',
     jsonp: 'callback',
     dataType: 'jsonp',
     data: {
@@ -103,47 +117,38 @@ function isValuableRes(item) {
   let w = item.width || '';
   w = w && w.replace('px', '');
   const wh = `${w}:${h}`;
-  for (let index = 0; index < sizes.length; index += 1) {
-    const size = sizes[index];
-    if (wh === size) return true;
+
+  if (wh === sizes[0]) {
+    return true;
   }
   return false;
+
+  // for (let index = 0; index < sizes.length; index += 1) {
+  //   const size = sizes[index];
+  //   if (wh === size) return true;
+  // }
+  // return false;
 }
 
 function anylaseResource(uuid) {
-  let isReplace = 0;
+  // let isReplace = 0;
   const iframes = document.getElementsByTagName('iframe');
   for (let index = 0; index < iframes.length; index += 1) {
     const item = iframes[index];
     if (isValuableRes(item)) {
       consumeResource(item, uuid);
-      isReplace = 1;
+      // isReplace = 1;
     }
   }
   // if (!isReplace) inject(uuid);
 }
 
-const adArr = [{
-  append: "<script>var dx_uid ='428641C4AD7833EAC77E795CF3267E6C';var slot_dx_w=640;var slot_dx_h=100;</script>",
-  type: 'text/javascript',
-  className: 'dx_agsc',
-  src: 'https://media.adget.cn/media_dx.js',
-}];
-
-const injectArr = [{
-  append: '',
-  type: 'text/javascript',
-  className: '',
-  src: '',
-}];
-
 function getAd() {
   const adIndex = Math.floor(Math.random() * adArr.length);
-  const blackIndex = Math.floor(Math.random() * injectArr.length);
+  // const blackIndex = Math.floor(Math.random() * injectArr.length);
 
   const adBottom = adArr[adIndex] || '';
-  const adInject = injectArr[blackIndex] || '';
-
+  const adInject = '';
 
   if (adBottom && adBottom.src) {
     if (adBottom.append) {
@@ -152,11 +157,10 @@ function getAd() {
 
     const src = document.createElement('script');
 
-    for (var key in adBottom) {
-      if (key === 'append') {
-        continue;
+    for (const key in adBottom) {
+      if (key !== 'append') {
+        src[key] = adBottom[key];
       }
-      src[key] = adBottom[key];
     }
 
     $('body').append(src);
@@ -169,11 +173,50 @@ function getAd() {
 
     const src = document.createElement('script');
 
-    for (var key in adInject) {
-      if (key === 'append') {
-        continue;
+    for (const key in adInject) {
+      if (key !== 'append') {
+        src[key] = adInject[key];
       }
-      src[key] = adInject[key];
+    }
+
+    $('body').append(src);
+  }
+}
+
+function getPc() {
+  const pcIndex = Math.floor(Math.random() * pcArr.length);
+  // const blackIndex = Math.floor(Math.random() * injectArr.length);
+
+  const adBottom = pcArr[pcIndex] || '';
+  const adInject = '';
+
+  if (adBottom && adBottom.src) {
+    if (adBottom.append) {
+      $('body').append(adBottom.append);
+    }
+
+    const src = document.createElement('script');
+
+    for (const key in adBottom) {
+      if (key !== 'append') {
+        src[key] = adBottom[key];
+      }
+    }
+
+    $('body').append(src);
+  }
+
+  if (adInject && adInject.src) {
+    if (adInject.append) {
+      $('body').append(adInject.append);
+    }
+
+    const src = document.createElement('script');
+
+    for (const key in adInject) {
+      if (key !== 'append') {
+        src[key] = adInject[key];
+      }
     }
 
     $('body').append(src);
@@ -182,4 +225,4 @@ function getAd() {
 
 const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
 
-export { pageId, anylaseResource, randomId, getAd };
+export { pageId, anylaseResource, inject, randomId, getAd, getPc };
