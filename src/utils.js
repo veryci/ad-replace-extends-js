@@ -4,14 +4,14 @@ import { CP_ID, AD_CONTENT_PATH } from './config';
 const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300'];
 
 const adArr = [{
-  append: "<script>var dxx_uid ='18BB4EECA6D708F4184486D37C4572FA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  append: "<script>var dxx_uid ='185F5C461321B71A19F0387F697BC6CD';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 
 const pcArr = [{
-  append: "<script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
+  append: "<script>var dxx_uid ='C94DD49ECDA4C4235C76A1F88130A6D3';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',

