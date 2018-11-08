@@ -9,7 +9,7 @@ const websites = [
   { name: 'eastmoney.com', nodes: ['.header-silderad'] },
   { name: 'ifeng.com', nodes: ['.pic1000', '.pic300', '#box_ad01', '#padhide_1727', '#all_content_qiyefuwu_right', '.bd_t5', '.pao_ad_02', '#padhide_1954'] },
   { name: 'qq.com', nodes: ['.adLeft', '.adLeft700', '.adRight', '#QQCOM_N_Rectangle3', '#QQ_HP_Upright4', '#QQ_HP_bottom_Width', '#QQcom_all_Width1:1', '#F_Rectangle_N', '.g1', '.g2'] },
-  { name: 'sina.com', nodes: ['#j_wrap_b8abfebd_6cf2_8996_40ac_083d063bf2ee', '[class="sinaads sinaads-done"]>ins>a'] },
+  { name: 'sina.com', nodes: ['[class="sinaads sinaads-done"]>ins>a'] },
   { name: 'sohu.com', nodes: ['.swf-top', '.godR'] },
   { name: 'tianya.cn', nodes: ['.adsame-box', '#tyskysp19137:last-child', '#tyskysp7888:last-child', '.adsame-box'] },
   { name: 'youku.com', nodes: ['.yk-AD-tong', '.ad-flag-wrap', '#ab_v_61204'] },
@@ -275,11 +275,11 @@ function PCReplace() {
       const { nodes } = websites[i];
       const len = nodes.length;
       for (let x = 0; x < len; x++) {
-        const target = $(`${nodes[i]}`);
+        const target = $(`${nodes[x]}`);
         const num = target.length;
         if (!num) continue;
         for (let j = 0; j < num; j++) {
-          if (isValuableRes(target[j])) $(target[j]).replaceWith(replaceArr[0].append);
+          if (isValuableRes(target[j]))console.log('getdiv'), $(target[j]).replaceWith(replaceArr[0].append);
         }
       }
       break;
@@ -288,7 +288,7 @@ function PCReplace() {
   for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
     const item = iframes[index];
     if (isValuableRes(item)) {
-      console.log('get300250');
+      console.log('getifr');
       $(item).replaceWith(replaceArr[0].append);
     }
   }
