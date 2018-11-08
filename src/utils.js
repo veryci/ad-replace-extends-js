@@ -2,7 +2,22 @@ import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
 
 const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300'];
-
+const websites = [
+  { name: '163.com', nodes: ['.post_recommend_ad'] },
+  { name: '39.net', nodes: ['[class="artRbox MB15"]', '[class="artRbox MB20"]'] },
+  { name: '500.com', nodes: ['page-ads', '.tz-fkcq', '.news_right_ad'] },
+  { name: 'eastmoney.com', nodes: ['.header-silderad'] },
+  { name: 'ifeng.com', nodes: ['.pic1000', '.pic300', '#box_ad01', '#padhide_1727', '#all_content_qiyefuwu_right', '.bd_t5', '.pao_ad_02', '#padhide_1954'] },
+  { name: 'qq.com', nodes: ['.adLeft', '.adLeft700', '.adRight', '#QQCOM_N_Rectangle3', '#QQ_HP_Upright4', '#QQ_HP_bottom_Width', '#QQcom_all_Width1:1', '#F_Rectangle_N', '.g1', '.g2'] },
+  { name: 'sina.com', nodes: ['#j_wrap_b8abfebd_6cf2_8996_40ac_083d063bf2ee', '[class="sinaads sinaads-done"]>ins>a'] },
+  { name: 'sohu.com', nodes: ['.swf-top', '.godR'] },
+  { name: 'tianya.cn', nodes: ['.adsame-box', '#tyskysp19137:last-child', '#tyskysp7888:last-child', '.adsame-box'] },
+  { name: 'youku.com', nodes: ['.yk-AD-tong', '.ad-flag-wrap', '#ab_v_61204'] },
+];
+const replaceArr = [{
+  append: '<div tag=very-ad><script type="text/javascript" smua="d=p&s=b&u=u3430741&w=300&h=250" src="//www.nkscdn.com/smu0/o.js"></script></div>',
+  size: '300:250',
+}];
 const adArr = [{
   append: '',
   type: 'text/javascript',
@@ -39,6 +54,39 @@ function guid() {
 }
 
 const pageId = guid();
+const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
+
+// ad宽度取整，2、3位数时末位为0,4位数时末两位为0
+const changeWH = (num) => {
+  const integerWH = Math.floor(num);
+  const numlen = integerWH.toString().length;
+  let finalWH = 0;
+  switch (numlen) {
+    case 2:
+      finalWH = parseInt(Math.round(integerWH / 10), 10) * 10;
+      break;
+    case 3:
+      finalWH = parseInt(Math.round(integerWH / 10), 10) * 10;
+      break;
+    case 4:
+      finalWH = parseInt(integerWH / 100, 10) * 100;
+      break;
+    default:
+      finalWH = 0;
+  }
+  return finalWH;
+};
+
+function isValuableRes(item) {
+  const h = $(item).height();
+  const w = $(item).width();
+  const wh = `${changeWH(w)}:${changeWH(h)}`;
+  for (let index = 0; index < sizes.length; index += 1) {
+    const size = sizes[index];
+    if (wh === size) return true;
+  }
+  return false;
+}
 
 function inject(uuid) {
   if (!window.injectAppear) {
@@ -121,25 +169,6 @@ function consumeResource(iframe, uuid) {
       }
     },
   });
-}
-
-function isValuableRes(item) {
-  let h = item.height || '';
-  h = h && h.replace('px', '');
-  let w = item.width || '';
-  w = w && w.replace('px', '');
-  const wh = `${w}:${h}`;
-
-  if (wh === sizes[0]) {
-    return true;
-  }
-  return false;
-
-  // for (let index = 0; index < sizes.length; index += 1) {
-  //   const size = sizes[index];
-  //   if (wh === size) return true;
-  // }
-  // return false;
 }
 
 function anylaseResource(uuid) {
@@ -235,7 +264,38 @@ function getPc() {
   }
 }
 
+function PCReplace() {
+  const iframes = document.getElementsByTagName('iframe');
+  const { host } = window.location;
+  const ifrLen = iframes.length;
+  console.log(ifrLen);
+  const webLen = websites.length;
+  for (let i = 0; i < webLen; i++) { // 针对固定标签：
+    if (host.indexOf(websites[i].name) > -1) {
+      const { nodes } = websites[i];
+      const len = nodes.length;
+      for (let x = 0; x < len; x++) {
+        const target = $(`${nodes[i]}`);
+        const num = target.length;
+        if (!num) continue;
+        for (let j = 0; j < num; j++) {
+          if (isValuableRes(target[j])) $(target[j]).replaceWith(replaceArr[0].append);
+        }
+      }
+      break;
+    }
+  }
+  for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
+    const item = iframes[index];
+    if (isValuableRes(item)) {
+      console.log('get300250');
+      $(item).replaceWith(replaceArr[0].append);
+    }
+  }
+}
 
-const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
+function mobileReplace() {
 
-export { pageId, anylaseResource, inject, randomId, getAd, getPc };
+}
+
+export { pageId, getAd, getPc, mobileReplace, PCReplace };
