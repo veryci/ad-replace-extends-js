@@ -30,7 +30,7 @@ function replace() {
   if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
   if (phone) mobileReplace();
-  PCReplace();
+  else PCReplace();
 }
 
 function redirect() {

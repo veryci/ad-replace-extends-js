@@ -17,7 +17,7 @@ const websites = [
 const replaceArr = [{
   append: '<div tag=very-ad><script type="text/javascript" smua="d=p&s=b&u=u3430741&w=300&h=250" src="//www.nkscdn.com/smu0/o.js"></script></div>',
   size: '300:250',
-  ceil: 10,
+  ceil: 10, // 广告位上限
   status: 0,
 }];
 const adArr = [{
@@ -266,17 +266,16 @@ function getPc() {
   }
 }
 
-function consumePlace(target) {
-  const wh = isValuableRes(target[j]);
-  console.log(wh);
+function consumePlace(target, wh) {
+  if (!wh) wh = isValuableRes(target);
   const len = replaceArr.length;
   if (wh) {
     for (let i = 0; i < len; i++) {
       const data = replaceArr[i];
-      if (data.size === wh && data.status < data.size) {
+      if (data.status < data.ceil && data.size === wh) { // 检查上限和查找广告
         $(target).replaceWith(data.append);
-        data.stauts++;
-        console.log('get', data.status);
+        data.status++;
+        console.log(wh, data.status);
         break;
       }
     }
@@ -288,9 +287,6 @@ function PCReplace() {
   const { host } = window.location;
   const ifrLen = iframes.length;
   console.log(ifrLen);
-  for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
-    consumePlace(iframes[index]);
-  }
   const webLen = websites.length;
   for (let i = 0; i < webLen; i++) { // 针对固定标签：
     if (host.indexOf(websites[i].name) > -1) {
@@ -307,10 +303,19 @@ function PCReplace() {
       break;
     }
   }
+  for (let index = 0; index < ifrLen; index++) { // 针对iframe
+    consumePlace(iframes[index]);
+  }
 }
 
 function mobileReplace() {
-
+  const iframes = document.getElementsByTagName('iframe');
+  for (let i = 0; i < iframes.length; i++) {
+    const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector("iframe[src^='http://googleads.g.doubleclick.net']");
+    if (isAd) {
+      consumePlace(iframes[i], '300:250');
+    }
+  }
 }
 
 export { pageId, getAd, getPc, mobileReplace, PCReplace };
