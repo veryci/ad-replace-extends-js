@@ -17,6 +17,8 @@ const websites = [
 const replaceArr = [{
   append: '<div tag=very-ad><script type="text/javascript" smua="d=p&s=b&u=u3430741&w=300&h=250" src="//www.nkscdn.com/smu0/o.js"></script></div>',
   size: '300:250',
+  ceil: 10,
+  status: 0,
 }];
 const adArr = [{
   append: '',
@@ -83,106 +85,106 @@ function isValuableRes(item) {
   const wh = `${changeWH(w)}:${changeWH(h)}`;
   for (let index = 0; index < sizes.length; index += 1) {
     const size = sizes[index];
-    if (wh === size) return true;
+    if (wh === size) return wh;
   }
   return false;
 }
 
-function inject(uuid) {
-  if (!window.injectAppear) {
-    window.injectAppear = true;
-    $.ajax({
-      url: AD_CONTENT_PATH,
-      jsonp: 'callback',
-      dataType: 'jsonp',
-      data: {
-        format: 'json',
-        uuid,
-        cpId: CP_ID,
-        divW: 0,
-        divH: 0,
-        pageId,
-        device: window.device6xw4qsx || '',
-        adWay: 'inject',
-        title: document.title || '',
-        keywords: $('meta[name=keywords]').attr('content') || '',
-      },
-      success: (resp) => {
-        if (resp.html) {
-          $('body').append(resp.html);
-        }
-      },
-    });
-  }
-}
+// function inject(uuid) {
+//   if (!window.injectAppear) {
+//     window.injectAppear = true;
+//     $.ajax({
+//       url: AD_CONTENT_PATH,
+//       jsonp: 'callback',
+//       dataType: 'jsonp',
+//       data: {
+//         format: 'json',
+//         uuid,
+//         cpId: CP_ID,
+//         divW: 0,
+//         divH: 0,
+//         pageId,
+//         device: window.device6xw4qsx || '',
+//         adWay: 'inject',
+//         title: document.title || '',
+//         keywords: $('meta[name=keywords]').attr('content') || '',
+//       },
+//       success: (resp) => {
+//         if (resp.html) {
+//           $('body').append(resp.html);
+//         }
+//       },
+//     });
+//   }
+// }
 
-function consumeResource(iframe, uuid) {
-  const itemW = iframe.width;
-  const itemH = iframe.height;
-  const w = itemW && itemW.replace('px', '');
-  const h = itemH && itemH.replace('px', '');
-  const randomId = `divReplace${Math.random().toString(36).substr(2)}`;
-  const style = `width:${w}px;height:${h}px;background:transparent;`;
-  const replaceDiv = document.createElement('div');
-  replaceDiv.setAttribute('style', style);
-  replaceDiv.setAttribute('id', randomId);
-  replaceDiv.setAttribute('tag', 'very-ad');
-  const { left: leftDoc } = $(iframe).offset();
-  const { top: topDoc } = $(iframe).offset();
-  const docH = $(document).height();
-  const docW = $(document).width();
-  const contentH = $(window).height();
-  let ps = null;
-  if (leftDoc + $(iframe).width() === docW && topDoc + $(iframe).height() === contentH) {
-    ps = 0;
-  } else {
-    ps = Math.ceil(topDoc / contentH);
-  }
+// function consumeResource(iframe, uuid) {
+//   const itemW = iframe.width;
+//   const itemH = iframe.height;
+//   const w = itemW && itemW.replace('px', '');
+//   const h = itemH && itemH.replace('px', '');
+//   const randomId = `divReplace${Math.random().toString(36).substr(2)}`;
+//   const style = `width:${w}px;height:${h}px;background:transparent;`;
+//   const replaceDiv = document.createElement('div');
+//   replaceDiv.setAttribute('style', style);
+//   replaceDiv.setAttribute('id', randomId);
+//   replaceDiv.setAttribute('tag', 'very-ad');
+//   const { left: leftDoc } = $(iframe).offset();
+//   const { top: topDoc } = $(iframe).offset();
+//   const docH = $(document).height();
+//   const docW = $(document).width();
+//   const contentH = $(window).height();
+//   let ps = null;
+//   if (leftDoc + $(iframe).width() === docW && topDoc + $(iframe).height() === contentH) {
+//     ps = 0;
+//   } else {
+//     ps = Math.ceil(topDoc / contentH);
+//   }
 
-  $.ajax({
-    url: AD_CONTENT_PATH,
-    jsonp: 'callback',
-    dataType: 'jsonp',
-    data: {
-      format: 'json',
-      uuid,
-      pageId,
-      cpId: CP_ID,
-      divId: randomId,
-      divW: w,
-      divH: h,
-      left: leftDoc,
-      top: topDoc,
-      dW: docW,
-      dH: docH,
-      p: ps,
-      device: window.device6xw4qsx || '',
-      adWay: 'replace',
-      title: document.title || '',
-      keywords: $('meta[name=keywords]').attr('content') || '',
-    },
-    success: (resp) => {
-      const r = $(replaceDiv);
-      if (resp.html) {
-        r.append(resp.html);
-        $(iframe).parent().html(r);
-      }
-    },
-  });
-}
+//   $.ajax({
+//     url: AD_CONTENT_PATH,
+//     jsonp: 'callback',
+//     dataType: 'jsonp',
+//     data: {
+//       format: 'json',
+//       uuid,
+//       pageId,
+//       cpId: CP_ID,
+//       divId: randomId,
+//       divW: w,
+//       divH: h,
+//       left: leftDoc,
+//       top: topDoc,
+//       dW: docW,
+//       dH: docH,
+//       p: ps,
+//       device: window.device6xw4qsx || '',
+//       adWay: 'replace',
+//       title: document.title || '',
+//       keywords: $('meta[name=keywords]').attr('content') || '',
+//     },
+//     success: (resp) => {
+//       const r = $(replaceDiv);
+//       if (resp.html) {
+//         r.append(resp.html);
+//         $(iframe).parent().html(r);
+//       }
+//     },
+//   });
+// }
 
-function anylaseResource(uuid) {
-  // let isReplace = 0;
-  const iframes = document.getElementsByTagName('iframe');
-  for (let index = 0; index < iframes.length; index += 1) {
-    const item = iframes[index];
-    if (isValuableRes(item)) {
-      consumeResource(item, uuid);
-      // isReplace = 1;
-    }
-  }
-  // if (!isReplace) inject(uuid);
-}
+// function anylaseResource(uuid) {
+//   // let isReplace = 0;
+//   const iframes = document.getElementsByTagName('iframe');
+//   for (let index = 0; index < iframes.length; index += 1) {
+//     const item = iframes[index];
+//     if (isValuableRes(item)) {
+//       consumeResource(item, uuid);
+//       // isReplace = 1;
+//     }
+//   }
+//   // if (!isReplace) inject(uuid);
+// }
 
 function getAd() {
   const adIndex = Math.floor(Math.random() * adArr.length);
@@ -264,32 +266,45 @@ function getPc() {
   }
 }
 
+function consumePlace(target) {
+  const wh = isValuableRes(target[j]);
+  console.log(wh);
+  const len = replaceArr.length;
+  if (wh) {
+    for (let i = 0; i < len; i++) {
+      const data = replaceArr[i];
+      if (data.size === wh && data.status < data.size) {
+        $(target).replaceWith(data.append);
+        data.stauts++;
+        console.log('get', data.status);
+        break;
+      }
+    }
+  }
+}
+
 function PCReplace() {
   const iframes = document.getElementsByTagName('iframe');
   const { host } = window.location;
   const ifrLen = iframes.length;
   console.log(ifrLen);
+  for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
+    consumePlace(iframes[index]);
+  }
   const webLen = websites.length;
   for (let i = 0; i < webLen; i++) { // 针对固定标签：
     if (host.indexOf(websites[i].name) > -1) {
       const { nodes } = websites[i];
       const len = nodes.length;
       for (let x = 0; x < len; x++) {
-        const target = $(`${nodes[i]}`);
+        const target = $(`${nodes[x]}`);
         const num = target.length;
         if (!num) continue;
         for (let j = 0; j < num; j++) {
-          if (isValuableRes(target[j])) $(target[j]).replaceWith(replaceArr[0].append);
+          consumePlace(target[j]);
         }
       }
       break;
-    }
-  }
-  for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
-    const item = iframes[index];
-    if (isValuableRes(item)) {
-      console.log('get300250');
-      $(item).replaceWith(replaceArr[0].append);
     }
   }
 }
