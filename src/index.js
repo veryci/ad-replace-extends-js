@@ -29,7 +29,7 @@ function extend() {
 function replace() {
   if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
-  if (phone) mobileReplace();
+  if (phone) mobileReplace('300:250');
   else PCReplace();
 }
 

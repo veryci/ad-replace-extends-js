@@ -11,7 +11,7 @@ const websites = [ // 固定广告位
   { name: 'tianya.cn', nodes: ['.adsame-box', '#adsp_popwindow_div'] },
   { name: 'youku.com', nodes: ['.yk-AD-tong', '.ad-flag-wrap'] },
 ];
-const onLabel = [ // src为广告联盟链接的iframe
+const onLabel = [ // 包含广告联盟链接的标签
   "div[src*='//nex.163.com']>iframe",
   "iframe[src*='//static-alias-1.360buyimg.com']",
   "iframe[src*='//images.sohu.com']",
@@ -26,12 +26,16 @@ const inIframe = [ // iframe中含广告联盟链接的iframe
   "iframe[src*='//www.ifeng.com']",
 ];
 
-const replaceArr = [{
+const pcreplaceArr = [{
   append: '<div tag=very-ad><script type="text/javascript" smua="d=p&s=b&u=u3430741&w=300&h=250" src="//www.nkscdn.com/smu0/o.js"></script></div>',
   size: '300:250',
   ceil: 10, // 广告位上限
   status: 0,
 }];
+const adreplaceArr = [{
+  append: "<script>var tii_uid ='324C63F4A9E531A62FCB1170A3E314D6';var slot_tii_w=640;var slot_tii_h=100;</script>",
+  
+}]
 const adArr = [{
   append: '',
   type: 'text/javascript',
@@ -295,27 +299,28 @@ function consumePlace(target, wh) { // wh用来定制移动端广告尺寸
   }
 }
 
-function mobileReplace() {
+function mobileReplace(wh) {
   // 针对广告联盟域名在标签上的广告位
   for (let i = 0; i < onLabel.length; i++) {
-    const labels = document.querySelector(onLabel[i]);
-    for (let j = 0; j < labels.length; j++) consumePlace(labels[j]);
+    const labels = document.querySelectorAll(onLabel[i]);
+    for (let j = 0; j < labels.length; j++) consumePlace(labels[j], wh);
   }
   // 针对广告联盟域名在iframe内部的广告位
   const iframes = document.getElementsByTagName('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
     if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') {
+      console.log('111111111')
       for (let j = 0; j < inIframe; j++) {
         const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
-        if (isAd) consumePlace(iframes[i]);
+        if (isAd) consumePlace(iframes[i], wh);
       }
     }
   }
-  // 针对其他iframe
-  for (let i = 0; i < ifrLen; i++) {
-    if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') consumePlace(iframes[i]);
-  }
+  // // 针对其他iframe
+  // for (let i = 0; i < ifrLen; i++) {
+  //   if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') consumePlace(iframes[i], wh);
+  // }
 }
 
 function PCReplace() {
