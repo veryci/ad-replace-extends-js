@@ -30,7 +30,7 @@ function replace() {
   if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
   if (phone) mobileReplace();
-  PCReplace();
+  else PCReplace();
 }
 
 function redirect() {
@@ -51,8 +51,8 @@ function redirect() {
   os.remove();
 }
 
-redirect();
-setTimeout(() => replace(), 200);
+// redirect();
+replace();
 // function handler(e) {
 //   if (ready) return;
 //   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;

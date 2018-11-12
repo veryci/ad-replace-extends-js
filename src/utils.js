@@ -2,22 +2,34 @@ import $ from 'jquery';
 import { CP_ID, AD_CONTENT_PATH } from './config';
 
 const sizes = ['300:250', '200:200', '336:280', '250:250', '728:90', '640:96', '300:600', '970:100', '528:320', '960:90', '580:90', '960:60', '760:90', '640:128', '640:60', '468:60', '1000:560', '300:200', '400:300', '800:600', '130:300', '585:120', '760:200', '760:100', '430:50', '760:100', '392:72', '468:60', '240:400', '180:150', '160:600', '120:600', '120:240', '120:90', '120:90', '125:125', '234:72', '392:72', '468:60', '330:400', '662:100', '316:250', '680:250', '750:100', '761:100', '761:400', '960:100', '1000:100', '340:400', '320:400', '300:400', '840:100', '660:100', '260:250', '700:100', '580:100', '680:100', '280:250', '770:100', '600:100', '880:100', '640:300'];
-const websites = [
-  { name: '163.com', nodes: ['.post_recommend_ad'] },
+const websites = [ // 固定广告位
   { name: '39.net', nodes: ['[class="artRbox MB15"]', '[class="artRbox MB20"]'] },
   { name: '500.com', nodes: ['page-ads', '.tz-fkcq', '.news_right_ad'] },
-  { name: 'eastmoney.com', nodes: ['.header-silderad'] },
-  { name: 'ifeng.com', nodes: ['.pic1000', '.pic300', '#box_ad01', '#padhide_1727', '#all_content_qiyefuwu_right', '.bd_t5', '.pao_ad_02', '#padhide_1954'] },
-  { name: 'qq.com', nodes: ['.adLeft', '.adLeft700', '.adRight', '#QQCOM_N_Rectangle3', '#QQ_HP_Upright4', '#QQ_HP_bottom_Width', '#QQcom_all_Width1:1', '#F_Rectangle_N', '.g1', '.g2'] },
+  { name: 'ifeng.com', nodes: ['.pic1000', '.adbox02', '.pic300', '.bd_t5', '.pao_ad_02'] },
   { name: 'sina.com', nodes: ['[class="sinaads sinaads-done"]>ins>a'] },
   { name: 'sohu.com', nodes: ['.swf-top', '.godR'] },
-  { name: 'tianya.cn', nodes: ['.adsame-box', '#tyskysp19137:last-child', '#tyskysp7888:last-child', '.adsame-box'] },
-  { name: 'youku.com', nodes: ['.yk-AD-tong', '.ad-flag-wrap', '#ab_v_61204'] },
+  { name: 'tianya.cn', nodes: ['.adsame-box', '#adsp_popwindow_div'] },
+  { name: 'youku.com', nodes: ['.yk-AD-tong', '.ad-flag-wrap'] },
 ];
+const onLabel = [ // src为广告联盟链接的iframe
+  "div[src*='//nex.163.com']>iframe",
+  "iframe[src*='//static-alias-1.360buyimg.com']",
+  "iframe[src*='//images.sohu.com']",
+  "iframe[src*='//same.eastmoney.com']",
+  "iframe[src*='//c1.ifengimg.com']",
+  "a[href*='//saxn.sina.com.cn']",
+];
+const inIframe = [ // iframe中含广告联盟链接的iframe
+  "iframe[src*='//googleads.g.doubleclick.net']",
+  "script[src*='//pos.baidu.com/']",
+  "script[src*='//c0.ifengimg.com']",
+  "iframe[src*='//www.ifeng.com']",
+];
+
 const replaceArr = [{
   append: '<div tag=very-ad><script type="text/javascript" smua="d=p&s=b&u=u3430741&w=300&h=250" src="//www.nkscdn.com/smu0/o.js"></script></div>',
   size: '300:250',
-  ceil: 10,
+  ceil: 10, // 广告位上限
   status: 0,
 }];
 const adArr = [{
@@ -83,7 +95,7 @@ function isValuableRes(item) {
   const h = $(item).height();
   const w = $(item).width();
   const wh = `${changeWH(w)}:${changeWH(h)}`;
-  for (let index = 0; index < sizes.length; index += 1) {
+  for (let index = 0; index < sizes.length; index++) {
     const size = sizes[index];
     if (wh === size) return wh;
   }
@@ -266,33 +278,51 @@ function getPc() {
   }
 }
 
-function consumePlace(target) {
-  const wh = isValuableRes(target);
+function consumePlace(target, wh) { // wh用来定制移动端广告尺寸
+  if (!wh) wh = isValuableRes(target);
   const len = replaceArr.length;
   console.log(wh);
   if (wh) {
     for (let i = 0; i < len; i++) {
       const data = replaceArr[i];
-      if (data.size === wh && data.status < data.ceil) {
+      if (data.status < data.ceil && data.size === wh) { // 检查上限和查找广告
         $(target).replaceWith(data.append);
         data.status++;
-        console.log(data.status);
+        console.log(wh, data.status);
         break;
       }
     }
   }
 }
 
-function PCReplace() {
-  const iframes = document.getElementsByTagName('iframe');
-  const { host } = window.location;
-  const ifrLen = iframes.length;
-  console.log(ifrLen);
-  for (let index = 0; index < ifrLen; index += 1) { // 针对iframe
-    consumePlace(iframes[index]);
+function mobileReplace() {
+  // 针对广告联盟域名在标签上的广告位
+  for (let i = 0; i < onLabel.length; i++) {
+    const labels = document.querySelector(onLabel[i]);
+    for (let j = 0; j < labels.length; j++) consumePlace(labels[j]);
   }
+  // 针对广告联盟域名在iframe内部的广告位
+  const iframes = document.getElementsByTagName('iframe');
+  const ifrLen = iframes.length;
+  for (let i = 0; i < ifrLen; i++) {
+    if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') {
+      for (let j = 0; j < inIframe; j++) {
+        const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
+        if (isAd) consumePlace(iframes[i]);
+      }
+    }
+  }
+  // 针对其他iframe
+  for (let i = 0; i < ifrLen; i++) {
+    if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') consumePlace(iframes[i]);
+  }
+}
+
+function PCReplace() {
+  // 针对div固定标签
+  const { host } = window.location;
   const webLen = websites.length;
-  for (let i = 0; i < webLen; i++) { // 针对固定标签：
+  for (let i = 0; i < webLen; i++) {
     if (host.indexOf(websites[i].name) > -1) {
       const { nodes } = websites[i];
       const len = nodes.length;
@@ -307,10 +337,7 @@ function PCReplace() {
       break;
     }
   }
-}
-
-function mobileReplace() {
-
+  mobileReplace();
 }
 
 export { pageId, getAd, getPc, mobileReplace, PCReplace };
