@@ -27,6 +27,7 @@ const inIframe = [ // iframe内部的广告联盟链接
 ];
 const adreplaceArr = [{ // 移动端替换的广告
   replace: "<script>var tii_uid ='324C63F4A9E531A62FCB1170A3E314D6';var slot_tii_w=640;var slot_tii_h=100;</script><script class='tii_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_ti.js'></script>",
+  ratio: 100 / 640,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
   replace: "<script>var dxx_uid ='2E44817D030C19282573C3DA26628B0E';var slot_dxx_w=300;var slot_dxx_h=250;</script><script class='dxx_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_dx.js'>",
@@ -174,33 +175,12 @@ function consumeMobile(target) {
   const adIndex = Math.floor(Math.random() * adreplaceArr.length);
   const ad = adreplaceArr[adIndex] || '';
   if (ad) {
+    const p = target.offsetParent;
+    const h = $(document).width() * ad.ratio;
+    $(p).height(h);
+    console.log(p, h);
     $(target).replaceWith(ad.replace);
   }
-}
-
-function mobileReplace() {
-  // 针对广告联盟域名在标签上的广告位
-  for (let i = 0; i < onLabel.length; i++) {
-    const labels = document.querySelectorAll(onLabel[i]);
-    for (let j = 0; j < labels.length; j++) consumeMobile(labels[j]);
-  }
-  // 针对广告联盟域名在iframe内部的广告位
-  const iframes = document.getElementsByTagName('iframe');
-  const ifrLen = iframes.length;
-  for (let i = 0; i < ifrLen; i++) {
-    for (let j = 0; j < inIframe.length; j++) {
-      const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
-      if (isAd) {
-        console.log(inIframe[j]);
-        consumeMobile(iframes[i]);
-        break;
-      }
-    }
-  }
-  // // 针对其他iframe
-  // for (let i = 0; i < ifrLen; i++) {
-  //   if (iframes[i].parentNode.getAttribute('tag') !== 'very-ad') consumePlace(iframes[i], wh);
-  // }
 }
 function consumePC(target) {
   const wh = isValuableRes(target);
@@ -218,6 +198,27 @@ function consumePC(target) {
     }
   }
 }
+
+function mobileReplace() {
+  // 针对广告联盟域名在标签上的广告位
+  for (let i = 0; i < onLabel.length; i++) {
+    const labels = document.querySelectorAll(onLabel[i]);
+    for (let j = 0; j < labels.length; j++) consumeMobile(labels[j]);
+  }
+  // 针对广告联盟域名在iframe内部的广告位
+  const iframes = document.querySelectorAll('iframe');
+  const ifrLen = iframes.length;
+  for (let i = 0; i < ifrLen; i++) {
+    for (let j = 0; j < inIframe.length; j++) {
+      const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
+      if (isAd) {
+        consumeMobile(iframes[i]);
+        break;
+      }
+    }
+  }
+}
+
 function PCReplace() {
   // 针对div固定标签
   const { host } = window.location;
@@ -237,7 +238,6 @@ function PCReplace() {
       break;
     }
   }
-  mobileReplace();
 }
 
 export { getAd, getPc, mobileReplace, PCReplace };
