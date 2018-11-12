@@ -53,6 +53,7 @@ function redirect() {
 
 // redirect();
 replace();
+extend()
 // function handler(e) {
 //   if (ready) return;
 //   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;

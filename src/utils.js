@@ -26,13 +26,13 @@ const inIframe = [ // iframe内部的广告联盟链接
   "iframe[src*='//www.ifeng.com']",
 ];
 const adreplaceArr = [{ // 移动端替换的广告
-  replace: "<script>var tii_uid ='324C63F4A9E531A62FCB1170A3E314D6';var slot_tii_w=640;var slot_tii_h=100;</script><script class='tii_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_ti.js'></script>",
+  replace: "<div tag='veryad'><script>var tii_uid ='324C63F4A9E531A62FCB1170A3E314D6';var slot_tii_w=640;var slot_tii_h=100;</script><script class='tii_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_ti.js'></script></div>",
   ratio: 100 / 640,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
-  replace: "<script>var dxx_uid ='2E44817D030C19282573C3DA26628B0E';var slot_dxx_w=300;var slot_dxx_h=250;</script><script class='dxx_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_dx.js'>",
+  replace: "<div tag='veryad'><script>var dxx_uid ='2E44817D030C19282573C3DA26628B0E';var slot_dxx_w=300;var slot_dxx_h=250;</script><script class='dxx_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_dx.js'></div>",
   size: '300:250',
-  ceil: 10,
+  ceil: 100,
   status: 0,
 }];
 const adArr = [{ // 移动端弹窗广告
@@ -182,10 +182,10 @@ function consumeMobile(target) {
     $(target).replaceWith(ad.replace);
   }
 }
+
 function consumePC(target) {
   const wh = isValuableRes(target);
   const len = pcreplaceArr.length;
-  console.log(wh);
   if (wh) {
     for (let i = 0; i < len; i++) {
       const data = pcreplaceArr[i];
@@ -238,6 +238,10 @@ function PCReplace() {
       break;
     }
   }
+  // 针对iframe
+  const iframes = document.querySelectorAll('iframe');
+  const ifrLen = iframes.length;
+  for (let i = 0; i < ifrLen; i++) consumePC(iframes[i]);
 }
 
 export { getAd, getPc, mobileReplace, PCReplace };
