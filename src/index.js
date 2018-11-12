@@ -51,12 +51,11 @@ function redirect() {
   os.remove();
 }
 
-redirect();
-
 function handler(e) {
   if (ready) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
   extend();
+  setTimeout(redirect, 100);
   ready = true;
 }
 
