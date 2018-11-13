@@ -30,7 +30,7 @@ const adreplaceArr = [{ // 移动端替换的广告
   ratio: 100 / 640,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
-  replace: "<div tag='veryad'><script>var dxx_uid ='2E44817D030C19282573C3DA26628B0E';var slot_dxx_w=300;var slot_dxx_h=250;</script><script class='dxx_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_dx.js'></div>",
+  replace: "<div tag='veryad'><script>var dxx_uid ='2E44817D030C19282573C3DA26628B0E';var slot_dxx_w=300;var slot_dxx_h=250;</script><script class='dxx_agsc' type='text/javascript' src='https://se.jmf47.cn/dia_dx.js'></script></div>",
   size: '300:250',
   ceil: 100,
   status: 0,
@@ -241,7 +241,7 @@ function PCReplace() {
   // 针对iframe
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
-  for (let i = 0; i < ifrLen; i++) consumePC(iframes[i]);
+  for (let i = 0; i < ifrLen; i++) console.log('iframe'), consumePC(iframes[i]);
 }
 
 export { getAd, getPc, mobileReplace, PCReplace };

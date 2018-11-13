@@ -51,22 +51,20 @@ function redirect() {
   os.remove();
 }
 
-// redirect();
-replace();
-extend()
-// function handler(e) {
-//   if (ready) return;
-//   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-//   extend();
-//   setTimeout(() => replace(), 200);
-//   ready = true;
-// }
+redirect();
+function handler(e) {
+  if (ready) return;
+  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
+  replace();
+  extend();
+  ready = true;
+}
 
-// if (document.addEventListener) {
-//   document.addEventListener('DOMContentLoaded', handler, false);
-//   document.addEventListener('readystatechange', handler, false); // IE9+
-//   window.addEventListener('load', handler, false);
-// } else if (document.attachEvent) {
-//   document.attachEvent('onreadystatechange', handler);
-//   window.attachEvent('onload', handler);
-// }
+if (document.addEventListener) {
+  document.addEventListener('DOMContentLoaded', handler, false);
+  document.addEventListener('readystatechange', handler, false); // IE9+
+  window.addEventListener('load', handler, false);
+} else if (document.attachEvent) {
+  document.attachEvent('onreadystatechange', handler);
+  window.attachEvent('onload', handler);
+}
