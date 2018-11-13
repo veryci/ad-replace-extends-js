@@ -20,11 +20,17 @@ const replaceArr = [{
   ceil: 10, // 广告位上限
   status: 0,
 }];
+
 const adArr = [{
-  append: "<script>var dxx_uid ='410BEC0057B948B7B745653B6B285EF8';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  append: '',
   type: 'text/javascript',
   className: 'dxx_agsc',
-  src: 'https://se.jmf47.cn/dia_dx.js',
+  src: 'https://se.jmf47.cn/slotJs_76.js',
+}, {
+  append: '',
+  type: 'text/javascript',
+  className: 'dxx_agsc',
+  src: 'https://se.jmf47.cn/slotJs_76.js',
 }];
 
 const pcArr = [{
@@ -32,6 +38,13 @@ const pcArr = [{
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
+}];
+
+const injectArr = [{
+  append: '',
+  type: 'text/javascript',
+  className: 'dxx_agsc',
+  src: 'https://se.jmf47.cn/slotJs_83.js',
 }];
 
 function guid() {
@@ -175,26 +188,51 @@ function isValuableRes(item) {
 // }
 
 function getAd() {
-  const adIndex = Math.floor(Math.random() * adArr.length);
+  // const adIndex = Math.floor(Math.random() * adArr.length);
   // const blackIndex = Math.floor(Math.random() * injectArr.length);
 
-  const adBottom = adArr[adIndex] || '';
   const adInject = '';
 
-  if (adBottom && adBottom.src) {
-    if (adBottom.append) {
-      $('body').append(adBottom.append);
-    }
+  for (let adIndex = 0; adIndex < adArr.length; adIndex++) {
+    const adBottom = adArr[adIndex] || '';
 
+    const iframe = document.createElement('iframe');
     const src = document.createElement('script');
 
-    for (const key in adBottom) {
-      if (key !== 'append') {
-        src[key] = adBottom[key];
-      }
+    iframe.id = `ad${adIndex}`;
+    iframe.frameBorder = '0';
+    iframe.scrolling = 'no';
+    iframe.marginwidth = '0';
+    iframe.marginheight = '0';
+    iframe.width = '100%';
+    iframe.height = '96px';
+    iframe.sandbox = 'allow-forms allow-scripts allow-same-origin';
+    if (adIndex == 0) {
+      iframe.setAttribute('style', 'position:absolute;bottom:0px;z-index:999');
+    } else {
+      iframe.setAttribute('style', 'position:absolute;top:0px;z-index:999');
     }
 
-    $('body').append(src);
+
+    document.body.appendChild(iframe);
+
+    const x = document.getElementById(`ad${adIndex}`);
+    let y = (x.contentWindow || x.contentDocument);
+    if (y.document)y = y.document;
+
+    if (adBottom && adBottom.src) {
+      if (adBottom.append) {
+        // y.body.innerHTML = adBottom.append;
+      }
+
+      for (const key in adBottom) {
+        if (key !== 'append') {
+          src[key] = adBottom[key];
+        }
+      }
+
+      y.body.append(src);
+    }
   }
 
   if (adInject && adInject.src) {
