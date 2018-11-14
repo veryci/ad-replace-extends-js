@@ -1,18 +1,18 @@
 import $ from 'jquery';
 
 const adArr = [{
-  append: '',
+  append: "<script>var dxx_uid ='C630BCB6B7653F5C3FB4F08169C8ABFA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
-  src: 'https://se.jmf47.cn/slotJs_76.js',
+  src: 'https://se.jmf47.cn/dia_dx.js',
 }, {
   append: '',
   type: 'text/javascript',
   className: 'dxx_agsc',
-  src: 'https://se.jmf47.cn/slotJs_76.js',
+  src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "<script>var dxx_uid ='5E4048C4D40D980E937AC76397832FFC';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
+  append: "<script>var dxx_uid ='55C5BDE49363CCAA8E11E7A91181800E';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
