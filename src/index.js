@@ -1,5 +1,6 @@
 import { phone } from 'ismobilejs';
-import { getAd, getPc, mobileReplace, PCReplace } from './utils';
+import { getAd, getPc } from './utils';
+import { mobileReplace, PCReplace } from './replace';
 // import { inPC } from './inPlatform';
 const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 
@@ -50,19 +51,16 @@ function redirect() {
   document.head.appendChild(os);
   os.remove();
 }
-
+// setTimeout(redirect, 100);
+// replace();
+// extend();
 function handler(e) {
+  console.log(e.type);
   if (ready) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-<<<<<<< HEAD
-  // setTimeout(() => {
-  //   replace();
-  // }, 100);
-=======
-  replace();
->>>>>>> 3bbdb0f3a6be9a427b0000b73562ae854854879e
-  extend();
   setTimeout(redirect, 100);
+  setTimeout(replace, 170);
+  extend();
   ready = true;
 }
 
