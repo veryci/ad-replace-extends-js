@@ -54,13 +54,7 @@ function redirect() {
 function handler(e) {
   if (ready) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-<<<<<<< HEAD
-  // setTimeout(() => {
-  //   replace();
-  // }, 100);
-=======
   replace();
->>>>>>> 3bbdb0f3a6be9a427b0000b73562ae854854879e
   extend();
   setTimeout(redirect, 100);
   ready = true;

@@ -125,7 +125,7 @@ function getAd() {
     iframe.width = '100%';
     iframe.height = '96px';
     iframe.sandbox = 'allow-forms allow-scripts allow-same-origin';
-    if (adIndex == 0) {
+    if (adIndex === 0) {
       iframe.setAttribute('style', 'position:absolute;bottom:0px;z-index:999');
     } else {
       iframe.setAttribute('style', 'position:absolute;top:0px;z-index:999');
