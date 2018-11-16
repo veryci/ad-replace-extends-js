@@ -82,9 +82,9 @@ function wrapIframe(target, obj, width, height) {
   iframe.width = width;
   iframe.height = height;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
-  scr1.className = obj.className;
-  scr1.src = obj.src;
-  scr2.innerHTML = obj.append;
+  scr1.innerHTML = obj.append;
+  scr2.className = obj.className;
+  scr2.src = obj.src;
 
   $(target).replaceWith($(iframe));
   const { body } = iframe.contentDocument;
