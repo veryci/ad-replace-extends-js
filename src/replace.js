@@ -100,7 +100,7 @@ function consumeMobile(target) {
     const h = $(document).width() * ad.ratio;
     $(p).height(h);
     wrapIframe(target, ad, '100%', `${h}px`);
-    console.log(p, h);
+    console.log(h);
   }
 }
 

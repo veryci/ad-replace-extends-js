@@ -68,3 +68,11 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
   window.attachEvent('onload', handler);
 }
+
+setTimeout(() => {
+  if (window.adReady) return;
+  setTimeout(replace, 0);
+  extend();
+  setTimeout(redirect, 200);
+  window.adReady = true;
+}, 15000);
