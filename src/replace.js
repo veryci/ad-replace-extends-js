@@ -37,7 +37,7 @@ const adreplaceArr = [{ // 移动端替换的广告
   append: "var tii_uid ='2E44817D030C19282573C3DA26628B0E';var slot_tii_w=300;var slot_tii_h=250;",
   className: 'tii_agsc',
   src: 'https://se.jmf47.cn/dia_ti.js',
-  ratio: 250 / 300,
+  ratio: 100 / 300,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
   append: "var tii_uid ='2E44817D030C19282573C3DA26628B0E';var slot_tii_w=300;var slot_tii_h=250;",

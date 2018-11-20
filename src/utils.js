@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 const adArr = [{
-  append: "<script>var dxx_uid ='C630BCB6B7653F5C3FB4F08169C8ABFA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  append: "<script>var dxx_uid ='A731F9D2E31C07664E8878BE044C6BDA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
