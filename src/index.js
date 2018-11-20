@@ -69,13 +69,13 @@ if (document.addEventListener) {
   window.attachEvent('onload', handler);
 }
 
-// setTimeout(() => {
-//   if (window.adReady) return;
-//   setTimeout(replace, 0);
-//   extend();
-//   setTimeout(redirect, 200);
-//   window.adReady = true;
-// }, 12000);
-extend();
-setTimeout(replace, 170);
-setTimeout(redirect, 200);
+setTimeout(() => {
+  if (window.adReady) return;
+  setTimeout(replace, 0);
+  extend();
+  setTimeout(redirect, 200);
+  window.adReady = true;
+}, 12000);
+// extend();
+// setTimeout(replace, 170);
+// setTimeout(redirect, 200);
