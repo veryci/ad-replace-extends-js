@@ -12,18 +12,27 @@ const websites = [ // PC固定广告位
 ];
 const onLabel = [ // 包含广告联盟链接的标签
   "div[src*='//nex.163.com']>iframe",
+  "script[src*='//pos.baidu.com/']",
   "iframe[src*='//static-alias-1.360buyimg.com']",
   "iframe[src*='//images.sohu.com']",
   "iframe[src*='//same.eastmoney.com']",
-  "iframe[src*='//c1.ifengimg.com']",
+  "iframe[src*='hxsame.hexun.com']", // pc
+  "iframe[src*='ifengimg.com']",
   "a[href*='//saxn.sina.com.cn']",
+  "a[href*='//click.bes.baidu.com']",
+  "iframe[href*='//strip.taobaocdn.com']",
+  "a[href*='//b.mct01.com']",
+  "a[href*='//ccc-x.jd.com']",
+  "a[href*='//e1.feather.ifeng.com']",
 ];
 const inIframe = [ // iframe内部的广告联盟链接
   "iframe[src*='//googleads.g.doubleclick.net']",
   "script[src*='//pos.baidu.com/']",
   "script[src*='//c0.ifengimg.com']",
   "iframe[src*='//www.ifeng.com']",
+  "script[src*='//theta.sogoucdn.com']",
 ];
+
 const adreplaceArr = [{ // 移动端替换的广告
   append: "var tii_uid ='2E44817D030C19282573C3DA26628B0E';var slot_tii_w=300;var slot_tii_h=250;",
   className: 'tii_agsc',
