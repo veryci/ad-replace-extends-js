@@ -34,15 +34,11 @@ const inIframe = [ // iframe内部的广告联盟链接
 ];
 
 const adreplaceArr = [{ // 移动端替换的广告
-  append: "var tii_uid ='2E44817D030C19282573C3DA26628B0E';var slot_tii_w=300;var slot_tii_h=250;",
-  className: 'tii_agsc',
-  src: 'https://se.jmf47.cn/dia_ti.js',
-  ratio: 100 / 300,
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=CCE7BAA757740173F0E19F5F3E42C440&w=640&h=100',
+  ratio: 100 / 640,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
-  append: "var tii_uid ='2E44817D030C19282573C3DA26628B0E';var slot_tii_w=300;var slot_tii_h=250;",
-  className: 'tii_agsc',
-  src: 'https://se.jmf47.cn/dia_ti.js',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=1C79D94D87C8CC7E686042A370932EF9&w=300&h=250',
   size: '300:250',
   ceil: 100,
   status: 0,
@@ -82,8 +78,7 @@ function isValuableRes(item) {
 
 function wrapIframe(target, obj, width, height) {
   const iframe = document.createElement('iframe');
-  const scr1 = document.createElement('script');
-  const scr2 = document.createElement('script');
+  const scr = document.createElement('script');
   iframe.frameBorder = '0';
   iframe.scrolling = 'no';
   iframe.marginwidth = '0';
@@ -91,14 +86,11 @@ function wrapIframe(target, obj, width, height) {
   iframe.width = width;
   iframe.height = height;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
-  scr1.innerHTML = obj.append;
-  scr2.className = obj.className;
-  scr2.src = obj.src;
+  scr.src = obj.src;
 
   $(target).replaceWith($(iframe));
   const { body } = iframe.contentDocument;
-  body.appendChild(scr1);
-  body.appendChild(scr2);
+  body.appendChild(scr);
 }
 
 function consumeMobile(target) {
