@@ -85,9 +85,8 @@ function wrapIframe(target, obj, width, height) {
   iframe.scrolling = 'no';
   iframe.marginwidth = '0';
   iframe.marginheight = '0';
-  iframe.style = `height:80px; width:${width}`;
+  iframe.style = `height:84px; width:${width}`;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
-  iframe.setAttribute('ad-type', 'ifrvb');
   scr.src = obj.src;
 
   $(target).replaceWith($(iframe));
