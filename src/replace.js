@@ -34,8 +34,10 @@ const inIframe = [ // iframe内部的广告联盟链接
 ];
 
 const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=CCE7BAA757740173F0E19F5F3E42C440&w=640&h=100',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=324C63F4A9E531A62FCB1170A3E314D6&w=640&h=100',
   ratio: 100 / 640,
+  ceil: 2,
+  status: 0,
 }];
 const pcreplaceArr = [{ // PC端替换的广告
   src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=1C79D94D87C8CC7E686042A370932EF9&w=300&h=250',
@@ -83,9 +85,9 @@ function wrapIframe(target, obj, width, height) {
   iframe.scrolling = 'no';
   iframe.marginwidth = '0';
   iframe.marginheight = '0';
-  iframe.width = width;
-  iframe.height = height;
+  iframe.style = `height:80px; width:${width}`;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
+  iframe.setAttribute('ad-type', 'ifrvb');
   scr.src = obj.src;
 
   $(target).replaceWith($(iframe));
@@ -94,14 +96,16 @@ function wrapIframe(target, obj, width, height) {
 }
 
 function consumeMobile(target) {
+  if (getComputedStyle(target) && getComputedStyle(target).display === 'none') return;
   const adIndex = Math.floor(Math.random() * adreplaceArr.length);
   const ad = adreplaceArr[adIndex] || '';
-  if (ad) {
+  if (ad && ad.status < ad.ceil) {
     const p = target.offsetParent;
     const h = $(document).width() * ad.ratio;
     $(p).height(h);
     wrapIframe(target, ad, '100%', `${h}px`);
-    console.log(h);
+    ad.status++;
+    console.log(h, ad.status);
   }
 }
 
@@ -131,7 +135,10 @@ function mobileReplace() {
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
+    if (iframes[i].getAttribute('ad-type') === 'ifrvb') continue;
+    consumeMobile(iframes[i]);
     for (let j = 0; j < inIframe.length; j++) {
+      if (iframes[i].getAttribute('ad-type') === 'ifrvb') break;
       const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
       if (isAd) {
         consumeMobile(iframes[i]);
@@ -139,6 +146,10 @@ function mobileReplace() {
       }
     }
   }
+  // 唤醒广告位
+  const scr = document.createElement('script');
+  scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=63E6DF89DE96C6C28CF2CF3F0E8EDD50&w=0&h=0';
+  document.body.appendChild(scr);
 }
 
 function PCReplace() {
