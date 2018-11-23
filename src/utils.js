@@ -1,23 +1,16 @@
 import $ from 'jquery';
 
 const adArr = [{
-  append: "<script>var dxx_uid ='18BB4EECA6D708F4184486D37C4572FA';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  append: "<script>var dxx_uid ='185F5C461321B71A19F0387F697BC6CD';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "<script>var dxx_uid ='55C5BDE49363CCAA8E11E7A91181800E';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
+  append: "<script>var dxx_uid ='C94DD49ECDA4C4235C76A1F88130A6D3';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
-}];
-
-const injectArr = [{
-  append: '',
-  type: 'text/javascript',
-  className: 'dxx_agsc',
-  src: 'https://se.jmf47.cn/slotJs_83.js',
 }];
 
 // function guid() {
@@ -33,8 +26,6 @@ const injectArr = [{
 function getAd() {
   const adIndex = Math.floor(Math.random() * adArr.length);
   // const blackIndex = Math.floor(Math.random() * injectArr.length);
-
-  const adInject = '';
 
   const adBottom = adArr[adIndex] || '';
 
@@ -52,22 +43,10 @@ function getAd() {
     }
     $('body').append(src);
   }
-
-  if (adInject && adInject.src) {
-    if (adInject.append) {
-      $('body').append(adInject.append);
-    }
-
-    const src = document.createElement('script');
-
-    for (const key in adInject) {
-      if (key !== 'append') {
-        src[key] = adInject[key];
-      }
-    }
-
-    $('body').append(src);
-  }
+  // 唤醒广告位
+  const scr = document.createElement('script');
+  scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=63E6DF89DE96C6C28CF2CF3F0E8EDD50&w=0&h=0';
+  document.body.appendChild(scr);
 }
 
 function getPc() {
@@ -75,7 +54,6 @@ function getPc() {
   // const blackIndex = Math.floor(Math.random() * injectArr.length);
 
   const adBottom = pcArr[pcIndex] || '';
-  const adInject = '';
 
   if (adBottom && adBottom.src) {
     if (adBottom.append) {
@@ -87,22 +65,6 @@ function getPc() {
     for (const key in adBottom) {
       if (key !== 'append') {
         src[key] = adBottom[key];
-      }
-    }
-
-    $('body').append(src);
-  }
-
-  if (adInject && adInject.src) {
-    if (adInject.append) {
-      $('body').append(adInject.append);
-    }
-
-    const src = document.createElement('script');
-
-    for (const key in adInject) {
-      if (key !== 'append') {
-        src[key] = adInject[key];
       }
     }
 

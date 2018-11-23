@@ -33,16 +33,16 @@ const inIframe = [ // iframe内部的广告联盟链接
   "script[src*='//theta.sogoucdn.com']",
 ];
 
-const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=324C63F4A9E531A62FCB1170A3E314D6&w=640&h=100',
-  ratio: 100 / 640,
-  ceil: 2,
-  status: 0,
-}];
 const pcreplaceArr = [{ // PC端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=1C79D94D87C8CC7E686042A370932EF9&w=300&h=250',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=94AD18915898E3C5B67A3C560AF6EAD9&w=300&h=250',
   size: '300:250',
   ceil: 100,
+  status: 0,
+}];
+const adreplaceArr = [{ // 移动端替换的广告
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=BD3156BD5BCC00C6FE9E2589BFE0699F&w=640&h=100',
+  ratio: 100 / 640,
+  ceil: 1,
   status: 0,
 }];
 
@@ -85,7 +85,8 @@ function wrapIframe(target, obj, width, height) {
   iframe.scrolling = 'no';
   iframe.marginwidth = '0';
   iframe.marginheight = '0';
-  iframe.style = `height:84px; width:${width}`;
+  iframe.setAttribute('adtype', 'ifrvb');
+  iframe.style = `height:${parseInt(height, 10) < 100 ? '84px' : height};width:${width}`;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
   scr.src = obj.src;
 
@@ -99,12 +100,12 @@ function consumeMobile(target) {
   const adIndex = Math.floor(Math.random() * adreplaceArr.length);
   const ad = adreplaceArr[adIndex] || '';
   if (ad && ad.status < ad.ceil) {
-    const p = target.offsetParent;
+    // const p = target.offsetParent;
     const h = $(document).width() * ad.ratio;
-    $(p).height(h);
+    // $(p).height(h);
     wrapIframe(target, ad, '100%', `${h}px`);
     ad.status++;
-    console.log(h, ad.status);
+    console.log(ad.status);
   }
 }
 
@@ -134,10 +135,10 @@ function mobileReplace() {
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
-    if (iframes[i].getAttribute('ad-type') === 'ifrvb') continue;
+    if (iframes[i].getAttribute('adtype') === 'ifrvb') continue;
     consumeMobile(iframes[i]);
     for (let j = 0; j < inIframe.length; j++) {
-      if (iframes[i].getAttribute('ad-type') === 'ifrvb') break;
+      if (iframes[i].getAttribute('adtype') === 'ifrvb') break;
       const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
       if (isAd) {
         consumeMobile(iframes[i]);
@@ -145,10 +146,6 @@ function mobileReplace() {
       }
     }
   }
-  // 唤醒广告位
-  const scr = document.createElement('script');
-  scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=63E6DF89DE96C6C28CF2CF3F0E8EDD50&w=0&h=0';
-  document.body.appendChild(scr);
 }
 
 function PCReplace() {

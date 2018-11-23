@@ -31,6 +31,7 @@ function replace() {
   window.adReplaceJS = `${name}-${version}`;
   if (phone) mobileReplace();
   else PCReplace();
+  // PCReplace();
 }
 
 function redirect() {
@@ -76,6 +77,7 @@ setTimeout(() => {
   setTimeout(redirect, 200);
   window.adReady = true;
 }, 12000);
+
 // extend();
 // setTimeout(replace, 170);
 // setTimeout(redirect, 200);
