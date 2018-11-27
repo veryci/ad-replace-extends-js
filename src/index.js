@@ -53,11 +53,11 @@ function redirect() {
 }
 
 function handler(e) {
+  setTimeout(redirect, 0);
   if (window.adReady) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
+  setTimeout(replace, 0);
   extend();
-  setTimeout(replace, 170);
-  setTimeout(redirect, 200);
   window.adReady = true;
 }
 
@@ -74,7 +74,6 @@ setTimeout(() => {
   if (window.adReady) return;
   setTimeout(replace, 0);
   extend();
-  setTimeout(redirect, 200);
   window.adReady = true;
 }, 12000);
 
