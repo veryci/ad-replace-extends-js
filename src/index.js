@@ -53,7 +53,10 @@ function redirect() {
 }
 
 function handler(e) {
-  setTimeout(redirect, 0);
+  if (window.top === window && !window.haveRedirect) {
+    setTimeout(redirect, 0);
+    window.haveRedirect = true;
+  }
   if (window.adReady) return;
   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
   setTimeout(replace, 0);

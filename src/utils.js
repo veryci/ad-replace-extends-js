@@ -1,13 +1,13 @@
 import $ from 'jquery';
 
 const adArr = [{
-  append: "<script>var dxx_uid ='185F5C461321B71A19F0387F697BC6CD';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
+  append: "<script>var dxx_uid ='74837FAD4DE4DAAF73AB46BB66D819B3';var slot_dxx_w=640;var slot_dxx_h=100;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "<script>var dxx_uid ='C94DD49ECDA4C4235C76A1F88130A6D3';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
+  append: "<script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script>",
   type: 'text/javascript',
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
