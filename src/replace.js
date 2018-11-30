@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 const sizes = ['300:250']; // PC可替换尺寸
 const websites = [ // PC固定广告位
   { name: '39.net', nodes: ['[class="artRbox MB15"]', '[class="artRbox MB20"]'] },
@@ -34,13 +32,13 @@ const inIframe = [ // iframe内部的广告联盟链接
 ];
 
 const pcreplaceArr = [{ // PC端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=94AD18915898E3C5B67A3C560AF6EAD9&w=300&h=250',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=5F95E31689D77F5A7DF6BB005AC96C68&w=300&h=250',
   size: '300:250',
   ceil: 100,
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=D9E37916F029C212370C16E7AFB83EE4&w=640&h=100',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=13EF6B319DB85165347CE51AFC1DE636&w=640&h=100',
   ratio: 100 / 640,
   ceil: 1,
   status: 0,
@@ -68,8 +66,8 @@ const changeWH = (num) => {
 };
 
 function isValuableRes(item) {
-  const h = $(item).height();
-  const w = $(item).width();
+  const h = parseInt(getComputedStyle(item).height, 10);
+  const w = parseInt(getComputedStyle(item).width, 10);
   const wh = `${changeWH(w)}:${changeWH(h)}`;
   for (let index = 0; index < sizes.length; index++) {
     const size = sizes[index];
@@ -90,19 +88,17 @@ function wrapIframe(target, obj, width, height) {
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
   scr.src = obj.src;
 
-  $(target).replaceWith($(iframe));
+  target.parentNode.replaceChild(iframe, target);
   const { body } = iframe.contentDocument;
   body.appendChild(scr);
 }
 
 function consumeMobile(target) {
   if (getComputedStyle(target) && getComputedStyle(target).display === 'none') return;
-  const adIndex = Math.floor(Math.random() * adreplaceArr.length);
+  const adIndex = Math.floor(Math.random() * (adreplaceArr.length - 1));
   const ad = adreplaceArr[adIndex] || '';
   if (ad && ad.status < ad.ceil) {
-    // const p = target.offsetParent;
-    const h = $(document).width() * ad.ratio;
-    // $(p).height(h);
+    const h = window.innerWidth * ad.ratio;
     wrapIframe(target, ad, '100%', `${h}px`);
     ad.status++;
     console.log(ad.status);
@@ -157,7 +153,7 @@ function PCReplace() {
       const { nodes } = websites[i];
       const len = nodes.length;
       for (let x = 0; x < len; x++) {
-        const targets = $(`${nodes[x]}`);
+        const targets = document.querySelectorAll(nodes[x]);
         const num = targets.length;
         if (!num) continue;
         for (let j = 0; j < num; j++) {

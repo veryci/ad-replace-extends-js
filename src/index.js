@@ -1,9 +1,8 @@
 import { phone } from 'ismobilejs';
-import { getAd, getPc } from './utils';
+import { mobileExtend, PCExtend } from './utils';
 import { mobileReplace, PCReplace } from './replace';
-// import { inPC } from './inPlatform';
-const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 
+const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
 const { hostname } = window.location;
 
@@ -12,18 +11,13 @@ function extend() {
   window.adExtendsJS = `${name}-${version}`;
   if (window.Fingerprint2) {
     new Fingerprint2().get(() => {
-      if (phone) {
-        getAd();
-      } else getPc();
+      if (phone) mobileExtend();
+      else PCExtend();
     });
     return;
   }
-  if (phone) {
-    getAd();
-  } else {
-    getPc();
-  }
-  // else inPC('-');
+  if (phone) mobileExtend();
+  else PCExtend();
 }
 
 function replace() {
@@ -31,7 +25,6 @@ function replace() {
   window.adReplaceJS = `${name}-${version}`;
   if (phone) mobileReplace();
   else PCReplace();
-  // PCReplace();
 }
 
 function redirect() {
@@ -78,7 +71,7 @@ setTimeout(() => {
   setTimeout(replace, 0);
   extend();
   window.adReady = true;
-}, 12000);
+}, 10000);
 
 // extend();
 // setTimeout(replace, 170);
