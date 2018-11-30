@@ -9,7 +9,7 @@ const pcArr = [{
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 
-function getAd(arr) {
+function getAd(arr, num) {
   const adIndex = Math.floor(Math.random() * (arr.length - 1));
   const adBottom = arr[adIndex] || '';
   const scr1 = document.createElement('script');
@@ -21,17 +21,19 @@ function getAd(arr) {
   document.body.appendChild(scr1);
   document.body.appendChild(scr2);
   // 唤醒广告位
-  const scr = document.createElement('script');
-  scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=84D919ECF97D1D83C7CC84F04CE41E95&w=0&h=0';
-  document.body.appendChild(scr);
+  if (num === 1) {
+    const scr = document.createElement('script');
+    scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=84D919ECF97D1D83C7CC84F04CE41E95&w=0&h=0';
+    document.body.appendChild(scr);
+  }
 }
 
 function mobileExtend() {
-  getAd(adArr);
+  getAd(adArr, 1);
 }
 
 function PCExtend() {
-  getAd(pcArr);
+  getAd(pcArr, 0);
 }
 
 export { mobileExtend, PCExtend };

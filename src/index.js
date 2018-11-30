@@ -72,7 +72,3 @@ setTimeout(() => {
   extend();
   window.adReady = true;
 }, 10000);
-
-// extend();
-// setTimeout(replace, 170);
-// setTimeout(redirect, 200);
