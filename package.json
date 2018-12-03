@@ -8,6 +8,7 @@
     "prod": "cross-env NODE_ENV=prod gulp prod",
     "beta": "cross-env NODE_ENV=beta gulp beta",
     "alpha": "cross-env NODE_ENV=alpha gulp alpha",
+    "head": "cross-env NODE_ENV=head gulp head",
     "dev": "cross-env NODE_ENV=dev gulp dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

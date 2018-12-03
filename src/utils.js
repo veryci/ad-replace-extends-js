@@ -1,10 +1,10 @@
 const adArr = [{
-  append: "var dxx_uid ='B541A624F68268DE133B47DC80D25485';var slot_dxx_w=640;var slot_dxx_h=100;",
+  append: "var dxx_uid ='3761F1C3656A78355AA9099394405CE4';var slot_dxx_w=640;var slot_dxx_h=100;",
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "var dxx_uid ='6A3484448C7650EBE707B526EF4ED4EE';var slot_dxx_w=300;var slot_dxx_h=250;",
+  append: "var dxx_uid ='53D5FA9A2A84560F8EDD1C341734652A';var slot_dxx_w=300;var slot_dxx_h=250;",
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
@@ -23,7 +23,7 @@ function getAd(arr, num) {
   // 唤醒广告位
   if (num === 1) {
     const scr = document.createElement('script');
-    scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=63E6DF89DE96C6C28CF2CF3F0E8EDD50&w=0&h=0';
+    scr.src = 'https://se.jmf47.cn/dia_ti_ne.js?slid=3288603845A25A29EBD28B3EE0B25351&w=0&h=0';
     document.body.appendChild(scr);
   }
 }

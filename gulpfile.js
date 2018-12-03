@@ -79,14 +79,26 @@ gulp.task('alpha', () => {
     .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
     .pipe(gulp.dest('./lib/'));
 });
-
-gulp.task('test', () => {
+gulp.task('vc', () => {
   browserify({
-    entries: './src/test.js',
+    entries: './src/vc.js',
     debug: true,
   }).transform(babelify.configure({
     presets: ['es2015'],
-  })).bundle().pipe(source('test.js'))
+  })).bundle().pipe(source('ad-extends-vc.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(replace('%CP_ID%', cpId))
+    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
+    .pipe(gulp.dest('./lib/'));
+});
+gulp.task('head', () => {
+  browserify({
+    entries: './src/headJs.js',
+    debug: true,
+  }).transform(babelify.configure({
+    presets: ['es2015'],
+  })).bundle().pipe(source('ad-extends-head.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(replace('%CP_ID%', cpId))
