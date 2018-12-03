@@ -13,6 +13,7 @@ function clear() {
   }
   window.localStorage.clear();
 }
+
 setInterval(() => {
   if (phone) {
     clear();
