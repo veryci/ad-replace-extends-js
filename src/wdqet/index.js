@@ -13,7 +13,7 @@ function replace() {
     mobileReplace();
     // 唤醒广告位
     const scr = document.createElement('script');
-    scr.src = 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=EEB21B97A6FC708C98B5A5C2D71C03AF&w=0&h=0';
+    scr.src = 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=84D919ECF97D1D83C7CC84F04CE41E95&w=0&h=0';
     document.body.appendChild(scr);
   } else PCReplace();
 }

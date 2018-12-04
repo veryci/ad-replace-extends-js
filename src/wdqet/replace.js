@@ -32,13 +32,13 @@ const inIframe = [ // iframe内部的广告联盟链接
 ];
 
 const pcreplaceArr = [{ // PC端替换的广告
-  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=2E44817D030C19282573C3DA26628B0E&w=300&h=250',
+  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=5F95E31689D77F5A7DF6BB005AC96C68&w=300&h=250',
   size: '300:250',
   ceil: 100,
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=2E1F2260CCA9CE36E8751BCBD1AE8DEC&w=640&h=100',
+  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=13EF6B319DB85165347CE51AFC1DE636&w=640&h=100',
   ratio: 100 / 640,
   ceil: 1,
   status: 0,

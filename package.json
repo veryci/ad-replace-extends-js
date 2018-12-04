@@ -4,13 +4,20 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run prod && npm run beta && npm run alpha && npm run dev",
-    "prod": "cross-env NODE_ENV=prod gulp prod",
-    "beta": "cross-env NODE_ENV=beta gulp beta",
-    "alpha": "cross-env NODE_ENV=alpha gulp alpha",
-    "head": "cross-env NODE_ENV=head gulp head",
-    "dev": "cross-env NODE_ENV=dev gulp dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "uecuh": "gulp uecuh",
+    "ueo": "gulp ueo",
+    "uebdn": "gulp uebdn",
+    "uebds": "gulp uebds",
+    "tc": "gulp tc",
+    "rumzr": "gulp rumzr",
+    "hzt": "gulp hzt",
+    "hzo": "gulp hzo",
+    "gye": "gulp gye",
+    "gyo": "gulp gyo",
+    "wdlt": "gulp wdlt",
+    "wdqet": "gulp wdqet",
+    "build": "npm run uecuh && npm run ueo && npm run uebdn && npm run uebds && npm run tc && npm run rumzr && npm run hzt && npm run hzo && npm run gye && npm run gyo && npm run wdlt && npm run wdqet",
+    "alpha": "cross-env NODE_ENV=alpha gulp alpha"
   },
   "repository": {
     "type": "git",

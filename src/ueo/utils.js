@@ -1,10 +1,10 @@
 const adArr = [{
-  append: "var dxx_uid ='410BEC0057B948B7B745653B6B285EF8';var slot_dxx_w=640;var slot_dxx_h=100;",
+  append: "var dxx_uid ='FB0C4D3EAE6B96AC010F617C2DA897D1';var slot_dxx_w=640;var slot_dxx_h=100;",
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "var dxx_uid ='5E4048C4D40D980E937AC76397832FFC';var slot_dxx_w=300;var slot_dxx_h=250;",
+  append: "var tii_uid ='3A4EF46DF080E9F5141CC5CBE53BC242';var slot_tii_w=300;var slot_tii_h=250;",
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
