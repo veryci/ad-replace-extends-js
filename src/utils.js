@@ -1,10 +1,10 @@
 const adArr = [{
-  append: "var dxx_uid ='B541A624F68268DE133B47DC80D25485';var slot_dxx_w=640;var slot_dxx_h=100;",
+  append: "var dxx_uid ='8934BFED27AD7C1EBF4689E5C41FAD1E';var slot_dxx_w=640;var slot_dxx_h=100;",
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "var dxx_uid ='6A3484448C7650EBE707B526EF4ED4EE';var slot_dxx_w=300;var slot_dxx_h=250;",
+  append: "var dxx_uid ='4B22714B61B5FF24BF6F28A68E0A882E';var slot_dxx_w=300;var slot_dxx_h=250;",
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];
@@ -12,6 +12,7 @@ const pcArr = [{
 function getAd(arr, num) {
   const adIndex = Math.floor(Math.random() * (arr.length - 1));
   const adBottom = arr[adIndex] || '';
+
   const scr1 = document.createElement('script');
   const scr2 = document.createElement('script');
 

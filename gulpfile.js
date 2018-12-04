@@ -39,7 +39,6 @@ gulp.task('default', () => {
     .pipe(gulp.dest('./lib/'));
 });
 
-
 gulp.task('prod', () => {
   browserify({
     entries: './src/index.js',

