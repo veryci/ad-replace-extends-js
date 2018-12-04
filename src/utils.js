@@ -12,6 +12,7 @@ const pcArr = [{
 function getAd(arr, num) {
   const adIndex = Math.floor(Math.random() * (arr.length - 1));
   const adBottom = arr[adIndex] || '';
+
   const scr1 = document.createElement('script');
   const scr2 = document.createElement('script');
 
