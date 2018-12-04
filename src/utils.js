@@ -1,5 +1,5 @@
 const adArr = [{
-  append: "var dxx_uid ='8934BFED27AD7C1EBF4689E5C41FAD1E';var slot_dxx_w=640;var slot_dxx_h=100;",
+  append: "var dxx_uid ='B541A624F68268DE133B47DC80D25485';var slot_dxx_w=640;var slot_dxx_h=100;",
   className: 'dxx_agsc',
   src: 'https://se.jmf47.cn/dia_dx.js',
 }];

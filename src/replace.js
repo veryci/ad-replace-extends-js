@@ -38,7 +38,7 @@ const pcreplaceArr = [{ // PC端替换的广告
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=BD3156BD5BCC00C6FE9E2589BFE0699F&w=640&h=100',
+  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=6A3484448C7650EBE707B526EF4ED4EE&w=640&h=100',
   ratio: 100 / 640,
   ceil: 1,
   status: 0,
