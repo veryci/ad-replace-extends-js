@@ -18,10 +18,11 @@ function replace() {
   } else PCReplace();
 }
 
-function handler(e) {
+function handler() {
   if (window.adReady) return;
-  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 100);
+  setTimeout(replace, 1000);
+  setTimeout(replace, 4000);
+  setTimeout(replace, 10000);
   window.adReady = true;
 }
 
@@ -33,9 +34,3 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
   window.attachEvent('onload', handler);
 }
-
-setTimeout(() => {
-  // if (window.adReady) return;
-  replace();
-  window.adReady = true;
-}, 10000);
