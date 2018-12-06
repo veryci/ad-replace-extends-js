@@ -1,16 +1,3 @@
-const pcreplaceArr = [{ // PC端替换的广告
-  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=2E44817D030C19282573C3DA26628B0E&w=300&h=250',
-  size: '300:250',
-  ceil: 100,
-  status: 0,
-}];
-const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=2E1F2260CCA9CE36E8751BCBD1AE8DEC&w=640&h=100',
-  ratio: 100 / 640,
-  ceil: 1,
-  status: 0,
-}];
-
 const sizes = ['300:250']; // PC可替换尺寸
 const websites = [ // PC固定广告位
   { name: '39.net', nodes: ['[class="artRbox MB15"]', '[class="artRbox MB20"]'] },
@@ -44,22 +31,19 @@ const inIframe = [ // iframe内部的广告联盟链接
   "script[src*='//theta.sogoucdn.com']",
 ];
 
-<<<<<<< HEAD
 const pcreplaceArr = [{ // PC端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=94AD18915898E3C5B67A3C560AF6EAD9&w=300&h=250',
+  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=94AD18915898E3C5B67A3C560AF6EAD9&w=300&h=250',
   size: '300:250',
   ceil: 100,
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
-  src: 'https://se.jmf47.cn/dia_ti_ne.js?slid=6A3484448C7650EBE707B526EF4ED4EE&w=640&h=100',
+  src: 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=BD3156BD5BCC00C6FE9E2589BFE0699F&w=640&h=100',
   ratio: 100 / 640,
   ceil: 1,
   status: 0,
 }];
 
-=======
->>>>>>> 92b0e64c28b1d7cac17efb91ce1b7aa0c11cab9c
 // ad宽度取整，2、3位数时末位为0,4位数时末两位为0
 const changeWH = (num) => {
   const integerWH = Math.floor(num);

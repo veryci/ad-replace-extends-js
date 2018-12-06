@@ -1,14 +1,10 @@
 const adArr = [{
-<<<<<<< HEAD
-  append: "var dxx_uid ='B541A624F68268DE133B47DC80D25485';var slot_dxx_w=640;var slot_dxx_h=100;",
-=======
-  append: "var dxx_uid ='410BEC0057B948B7B745653B6B285EF8';var slot_dxx_w=640;var slot_dxx_h=100;",
->>>>>>> 92b0e64c28b1d7cac17efb91ce1b7aa0c11cab9c
+  append: "var dxx_uid ='8934BFED27AD7C1EBF4689E5C41FAD1E';var slot_dxx_w=640;var slot_dxx_h=100;",
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "var dxx_uid ='5E4048C4D40D980E937AC76397832FFC';var slot_dxx_w=300;var slot_dxx_h=250;",
+  append: "var dxx_uid ='4B22714B61B5FF24BF6F28A68E0A882E';var slot_dxx_w=300;var slot_dxx_h=250;",
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
@@ -16,7 +12,6 @@ const pcArr = [{
 function getAd(arr, num) {
   const adIndex = Math.floor(Math.random() * (arr.length - 1));
   const adBottom = arr[adIndex] || '';
-
   const scr1 = document.createElement('script');
   const scr2 = document.createElement('script');
 

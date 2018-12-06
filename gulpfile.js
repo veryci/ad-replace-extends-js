@@ -12,57 +12,8 @@ const cpId = config.get('cpId');
 const adContentPath = config.get('adContentPath');
 
 
-gulp.task('dev', () => {
-  browserify({
-    entries: './src/index.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-dev.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%CP_ID%', cpId))
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
-
-gulp.task('default', () => {
-  browserify({
-    entries: './src/index.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
-
-gulp.task('prod', () => {
-  browserify({
-    entries: './src/index.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-prod.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
-
-gulp.task('beta', () => {
-  browserify({
-    entries: './src/index.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-beta.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
+gulp.task('watch', () => {
+  gulp.watch('./src/*.js', ['dev']);
 });
 
 gulp.task('alpha', () => {
@@ -78,6 +29,7 @@ gulp.task('alpha', () => {
     .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
     .pipe(gulp.dest('./lib/'));
 });
+
 gulp.task('vc', () => {
   browserify({
     entries: './src/vc.js',
@@ -91,20 +43,30 @@ gulp.task('vc', () => {
     .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
     .pipe(gulp.dest('./lib/'));
 });
-gulp.task('head', () => {
-  browserify({
-    entries: './src/headJs.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-head.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%CP_ID%', cpId))
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
 
-gulp.task('watch', () => {
-  gulp.watch('./src/*.js', ['dev']);
-});
+function build(env) {
+  gulp.task(`${env}`, () => {
+    browserify({
+      entries: `./src/${env}/index.js`,
+      debug: true,
+    }).transform(babelify.configure({
+      presets: ['es2015'],
+    })).bundle().pipe(source(`${env}.js`))
+      .pipe(buffer())
+      .pipe(uglify())
+      .pipe(gulp.dest('./lib/cdn'));
+  });
+}
+
+build('uecuh');
+build('ueo');
+build('uebdn');
+build('uebds');
+build('tc');
+build('rumzr');
+build('hzt');
+build('hzo');
+build('gye');
+build('gyo');
+build('wdlt');
+build('wdqet');
