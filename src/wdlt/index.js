@@ -38,4 +38,4 @@ setTimeout(() => {
   if (window.adReady) return;
   replace();
   window.adReady = true;
-}, 12000);
+}, 10000);
