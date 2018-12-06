@@ -6,7 +6,7 @@ const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
 const { hostname } = window.location;
 
 function replace() {
-  if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
+  if (window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
 
   if (phone) {
@@ -35,7 +35,7 @@ if (document.addEventListener) {
 }
 
 setTimeout(() => {
-  if (window.adReady) return;
+  // if (window.adReady) return;
   replace();
   window.adReady = true;
 }, 10000);
