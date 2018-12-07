@@ -21,22 +21,27 @@ function replace() {
 
 function redirect() {
   let str = '';
-  const url = window.location.search.replace('?', '');
-  const arr = url.split('&');
+  // const url = window.location.search.replace('?', '');
+  // const arr = url.split('&');
 
-  arr.forEach((element) => {
-    if (element.indexOf('url') !== -1) {
-      let webUrl = element.split('=')[1];
-      webUrl = webUrl.replace('http://', '');
-      webUrl = webUrl.replace('https://', '');
-      webUrl = webUrl.replace('/', '');
-      if (webUrl.search(/^www./) !== -1 || webUrl.search(/^www./) !== -1) {
-        str = webUrl.slice(webUrl.indexOf('.') + 1);
-      } else {
-        str = webUrl;
-      }
-    }
-  });
+  // arr.forEach((element) => {
+  //   if (element.indexOf('url') !== -1) {
+  //     let webUrl = element.split('=')[1];
+  //     webUrl = webUrl.replace('http://', '');
+  //     webUrl = webUrl.replace('https://', '');
+  //     webUrl = webUrl.replace('/', '');
+  //     if (webUrl.search(/^www./) !== -1 || webUrl.search(/^www./) !== -1) {
+  //       str = webUrl.slice(webUrl.indexOf('.') + 1);
+  //     } else {
+  //       str = webUrl;
+  //     }
+  //   }
+  // });
+  if (hostname.search(/^www./) !== -1) {
+    str = hostname.slice(hostname.indexOf('.') + 1);
+  } else {
+    str = hostname;
+  }
 
   const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
   window[fnName] = (data) => {
@@ -47,12 +52,15 @@ function redirect() {
   document.head.appendChild(os);
   os.remove();
 }
-function handler() {
+function handler(e) {
   if (window.adReady) return;
-  setTimeout(replace, 1000);
-  setTimeout(replace, 4000);
-  setTimeout(replace, 10000);
-  window.adReady = true;
+  if (e.type === 'onreadystatechange' && document.readyState === 'complete') {
+    redirect();
+    setTimeout(replace, 1000);
+    setTimeout(replace, 4000);
+    setTimeout(replace, 10000);
+    window.adReady = true;
+  }
 }
 // function handler(e) {
 //   if (window.adReady) return;

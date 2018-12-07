@@ -171,6 +171,7 @@ function PCReplace() {
   for (let i = 0; i < ifrLen; i++) {
     if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelector('iframe')) continue;
     consumePC(iframes[i]);
+  }
 }
 
 export { mobileReplace, PCReplace };
