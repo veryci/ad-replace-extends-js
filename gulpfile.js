@@ -57,7 +57,7 @@ function build(env) {
       .pipe(gulp.dest('./lib/cdn'));
   });
 }
-
+build('ads');
 build('uecuh');
 build('ueo');
 build('uebdn');
