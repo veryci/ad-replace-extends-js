@@ -8,56 +8,35 @@ const buffer = require('vinyl-buffer');
 const replace = require('gulp-replace');
 const config = require('config');
 
-const cpId = config.get('cpId');
-const adContentPath = config.get('adContentPath');
-
+const adReplace640 = config.get('adReplace640');
+const adReplace300 = config.get('adReplace300');
+const adFixed640 = config.get('adFixed640');
+const adFixed300 = config.get('adFixed300');
+const ad0x0 = config.get('ad0x0');
 
 gulp.task('watch', () => {
   gulp.watch('./src/*.js', ['dev']);
 });
 
-gulp.task('alpha', () => {
-  browserify({
-    entries: './src/index.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-alpha.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%CP_ID%', cpId))
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
-
-gulp.task('vc', () => {
-  browserify({
-    entries: './src/vc.js',
-    debug: true,
-  }).transform(babelify.configure({
-    presets: ['es2015'],
-  })).bundle().pipe(source('ad-extends-vc.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(replace('%CP_ID%', cpId))
-    .pipe(replace('%AD_CONTENT_PATH%', adContentPath))
-    .pipe(gulp.dest('./lib/'));
-});
-
-function build(env) {
+function build(env, v) {
   gulp.task(`${env}`, () => {
+    const entries = v === 'vc' ? './src/vc.js' : './src/index.js';
     browserify({
-      entries: `./src/${env}/index.js`,
+      entries,
       debug: true,
     }).transform(babelify.configure({
       presets: ['es2015'],
     })).bundle().pipe(source(`${env}.js`))
       .pipe(buffer())
       .pipe(uglify())
+      .pipe(replace('%AD_REPLACE640', adReplace640))
+      .pipe(replace('%AD_REPLACE300%', adReplace300))
+      .pipe(replace('%AD_FIXED640%', adFixed640))
+      .pipe(replace('%AD_FIXED300%', adFixed300))
+      .pipe(replace('%AD_0XO%', ad0x0))
       .pipe(gulp.dest('./lib/cdn'));
   });
 }
-build('ads');
 build('uecuh');
 build('ueo');
 build('uebdn');
@@ -68,6 +47,6 @@ build('hzt');
 build('hzo');
 build('gye');
 build('gyo');
-build('wdlt');
-build('wdqet');
-build('test');
+build('wdlt', 'vc');
+build('wdqet', 'vc');
+build('ads');

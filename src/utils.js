@@ -1,14 +1,12 @@
+import { AD_FIXED640, AD_FIXED300, AD_0X0 } from "./config";
+
 const adArr = [{
-<<<<<<< HEAD
-  append: "var dxx_uid ='B541A624F68268DE133B47DC80D25485';var slot_dxx_w=640;var slot_dxx_h=100;",
-=======
-  append: "var dxx_uid ='410BEC0057B948B7B745653B6B285EF8';var slot_dxx_w=640;var slot_dxx_h=100;",
->>>>>>> 92b0e64c28b1d7cac17efb91ce1b7aa0c11cab9c
+  append: AD_FIXED640,
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
 const pcArr = [{
-  append: "var dxx_uid ='5E4048C4D40D980E937AC76397832FFC';var slot_dxx_w=300;var slot_dxx_h=250;",
+  append: AD_FIXED300,
   className: 'dxx_agsc',
   src: 'https://vsx.vsx3e.cn/dia_dx.js',
 }];
@@ -28,7 +26,7 @@ function getAd(arr, num) {
   // 唤醒广告位
   if (num === 1) {
     const scr = document.createElement('script');
-    scr.src = 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=63E6DF89DE96C6C28CF2CF3F0E8EDD50&w=0&h=0';
+    scr.src = AD_0X0;
     document.body.appendChild(scr);
   }
 }

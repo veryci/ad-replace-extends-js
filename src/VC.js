@@ -1,5 +1,6 @@
 import { phone } from 'ismobilejs';
 import { mobileReplace, PCReplace } from './replace';
+import { AD_0X0 } from './config';
 
 const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
@@ -13,7 +14,7 @@ function replace() {
     mobileReplace();
     // 唤醒广告位
     const scr = document.createElement('script');
-    scr.src = 'https://vsx.vsx3e.cn/dia_ti_ne.js?slid=EEB21B97A6FC708C98B5A5C2D71C03AF&w=0&h=0';
+    scr.src = AD_0X0;
     document.body.appendChild(scr);
   } else PCReplace();
 }
