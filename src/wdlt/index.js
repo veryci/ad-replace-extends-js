@@ -6,7 +6,7 @@ const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
 const { hostname } = window.location;
 
 function replace() {
-  if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
+  if (window.top !== window || blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
 
   if (phone) {
@@ -18,10 +18,11 @@ function replace() {
   } else PCReplace();
 }
 
-function handler(e) {
+function handler() {
   if (window.adReady) return;
-  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 100);
+  setTimeout(replace, 1000);
+  setTimeout(replace, 4000);
+  setTimeout(replace, 10000);
   window.adReady = true;
 }
 
@@ -33,9 +34,3 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
   window.attachEvent('onload', handler);
 }
-
-setTimeout(() => {
-  if (window.adReady) return;
-  replace();
-  window.adReady = true;
-}, 12000);

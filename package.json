@@ -4,6 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "test": "gulp test",
     "uecuh": "gulp uecuh",
     "ueo": "gulp ueo",
     "uebdn": "gulp uebdn",

@@ -130,10 +130,8 @@ function mobileReplace() {
   // 针对广告联盟域名在iframe内部的广告位
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
-  console.log(iframes)
   for (let i = 0; i < ifrLen; i++) {
     if (iframes[i].getAttribute('adtype') === 'ifrvb') continue;
-    console.log(iframes, getComputedStyle(iframes[i]).display)
     consumeMobile(iframes[i]);
     for (let j = 0; j < inIframe.length; j++) {
       if (iframes[i].getAttribute('adtype') === 'ifrvb') break;
@@ -168,7 +166,10 @@ function PCReplace() {
   // 针对iframe
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
-  for (let i = 0; i < ifrLen; i++) consumePC(iframes[i]);
+  for (let i = 0; i < ifrLen; i++) {
+    if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelector('iframe')) continue;
+    consumePC(iframes[i]);
+  }
 }
 
 export { mobileReplace, PCReplace };

@@ -70,3 +70,4 @@ build('gye');
 build('gyo');
 build('wdlt');
 build('wdqet');
+build('test');
