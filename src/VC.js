@@ -47,14 +47,25 @@ function redirect() {
   document.head.appendChild(os);
   os.remove();
 }
-
-function handler(e) {
+function handler() {
   if (window.adReady) return;
-  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 100);
-  redirect();
+  setTimeout(replace, 1000);
+  setTimeout(replace, 4000);
+  setTimeout(replace, 10000);
   window.adReady = true;
 }
+// function handler(e) {
+//   if (window.adReady) return;
+//   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
+//   setTimeout(replace, 100);
+//   redirect();
+//   window.adReady = true;
+// }
+// setTimeout(() => {
+//   if (window.adReady) return;
+//   replace();
+//   window.adReady = true;
+// }, 10000);
 
 if (document.addEventListener) {
   document.addEventListener('DOMContentLoaded', handler, false);
@@ -65,8 +76,3 @@ if (document.addEventListener) {
   window.attachEvent('onload', handler);
 }
 
-setTimeout(() => {
-  if (window.adReady) return;
-  replace();
-  window.adReady = true;
-}, 12000);
