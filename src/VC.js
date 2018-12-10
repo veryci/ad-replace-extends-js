@@ -52,35 +52,21 @@ function redirect() {
   document.head.appendChild(os);
   os.remove();
 }
-function handler(e) {
-  if (window.adReady) return;
-  if (e.type === 'onreadystatechange' && document.readyState === 'complete') {
+
+function handler() {
+  if (window.top === window && !window.haveRedirect) {
     redirect();
-    setTimeout(replace, 1000);
-    setTimeout(replace, 4000);
-    setTimeout(replace, 10000);
-    window.adReady = true;
+    window.haveRedirect = true;
   }
+  if (document.readyState !== 'complete') return;
+  replace();
+  setTimeout(replace, 4000);
+  window.adReady = true;
 }
-// function handler(e) {
-//   if (window.adReady) return;
-//   if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-//   setTimeout(replace, 100);
-//   redirect();
-//   window.adReady = true;
-// }
-// setTimeout(() => {
-//   if (window.adReady) return;
-//   replace();
-//   window.adReady = true;
-// }, 10000);
 
 if (document.addEventListener) {
   document.addEventListener('DOMContentLoaded', handler, false);
   document.addEventListener('readystatechange', handler, false); // IE9+
-  window.addEventListener('load', handler, false);
 } else if (document.attachEvent) {
   document.attachEvent('onreadystatechange', handler);
-  window.attachEvent('onload', handler);
 }
-

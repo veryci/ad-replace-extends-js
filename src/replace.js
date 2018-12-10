@@ -169,7 +169,7 @@ function PCReplace() {
   const iframes = document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
-    if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelector('iframe')) continue;
+    if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelectorAll('iframe') > 1) continue;
     consumePC(iframes[i]);
   }
 }
