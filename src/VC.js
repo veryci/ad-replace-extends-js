@@ -58,7 +58,7 @@ function handler() {
     redirect();
     window.haveRedirect = true;
   }
-  if (document.readyState !== 'complete') return;
+  if (window.adReady || document.readyState !== 'complete') return;
   replace();
   setTimeout(replace, 4000);
   window.adReady = true;
@@ -70,3 +70,9 @@ if (document.addEventListener) {
 } else if (document.attachEvent) {
   document.attachEvent('onreadystatechange', handler);
 }
+
+setTimeout(() => {
+  if (window.adReady) return;
+  setTimeout(replace, 0);
+  window.adReady = true;
+}, 10000);

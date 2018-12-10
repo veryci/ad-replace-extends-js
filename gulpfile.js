@@ -37,16 +37,17 @@ function build(env, v) {
       .pipe(gulp.dest('./lib/cdn'));
   });
 }
-build('uecuh');
-build('ueo');
-build('uebdn');
-build('uebds');
-build('tc');
-build('rumzr');
-build('hzt');
-build('hzo');
-build('gye');
-build('gyo');
-build('wdlt', 'vc');
-build('wdqet', 'vc');
+
+build('uecuh'); // 腾达补贴购
+build('ueo'); // 腾达N300
+build('uebdn'); // 腾达AC9
+build('uebds'); // 腾达AC6
+build('tc'); // 烧包
+build('rumzr'); // 其他路由器
+build('hzt'); // 捷云2
+build('hzo'); // 捷云1
+build('gye'); // 斐讯2018
+build('gyo'); // 斐讯2016
+build('wdlt', 'vc'); // vc昆时
+build('wdqet', 'vc'); // vc平顶山
 build('ads');

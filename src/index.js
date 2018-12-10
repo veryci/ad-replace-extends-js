@@ -85,26 +85,22 @@ function handler(e) {
     setTimeout(redirect, 0);
     window.haveRedirect = true;
   }
-  if (window.adReady) return;
-  if (e.type === 'onreadystatechange' && document.readyState !== 'complete') return;
-  setTimeout(replace, 0);
+  if (window.adReady || document.readyState !== 'complete') return;
   extend();
+  replace();
+  setTimeout(replace, 4000);
   window.adReady = true;
 }
 
 if (document.addEventListener) {
   document.addEventListener('DOMContentLoaded', handler, false);
   document.addEventListener('readystatechange', handler, false); // IE9+
-  window.addEventListener('load', handler, false);
 } else if (document.attachEvent) {
   document.attachEvent('onreadystatechange', handler);
-  window.attachEvent('onload', handler);
 }
 
 setInterval(() => {
-  if (phone) {
-    clear();
-  }
+  if (phone) window.localStorage.clear();
 }, 3000);
 
 setTimeout(() => {
