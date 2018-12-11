@@ -1,4 +1,4 @@
-import { AD_FIXED640, AD_FIXED300, AD_0X0 } from "./config";
+import { AD_FIXED640, AD_FIXED300, AD_0X0 } from './config';
 
 const adArr = [{
   append: AD_FIXED640,

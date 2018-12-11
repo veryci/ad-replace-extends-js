@@ -56,12 +56,13 @@ function redirect() {
 function handler() {
   if (window.top === window && !window.haveRedirect) {
     redirect();
-    window.haveRedirect = true;
+    window.top.haveRedirect = true;
   }
+  console.log(document.readyState, window.top === window);
   if (window.adReady || document.readyState !== 'complete') return;
   replace();
   setTimeout(replace, 4000);
-  window.adReady = true;
+  window.top.adReady = true;
 }
 
 if (document.addEventListener) {
