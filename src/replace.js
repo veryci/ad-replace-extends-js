@@ -126,11 +126,11 @@ function consumePC(target) {
 function mobileReplace() {
   // 针对广告联盟域名在标签上的广告位
   for (let i = 0; i < onLabel.length; i++) {
-    const labels = document.querySelectorAll(onLabel[i]);
+    const labels = window.top.document.querySelectorAll(onLabel[i]);
     for (let j = 0; j < labels.length; j++) consumeMobile(labels[j]);
   }
   // 针对广告联盟域名在iframe内部的广告位
-  const iframes = document.querySelectorAll('iframe');
+  const iframes = window.top.document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
     if (iframes[i].getAttribute('adtype') === 'ifrvb') continue;
@@ -148,14 +148,14 @@ function mobileReplace() {
 
 function PCReplace() {
   // 针对div固定标签
-  const { host } = window.location;
+  const { host } = window.top.location;
   const webLen = websites.length;
   for (let i = 0; i < webLen; i++) {
     if (host.indexOf(websites[i].name) > -1) {
       const { nodes } = websites[i];
       const len = nodes.length;
       for (let x = 0; x < len; x++) {
-        const targets = document.querySelectorAll(nodes[x]);
+        const targets = window.top.document.querySelectorAll(nodes[x]);
         const num = targets.length;
         if (!num) continue;
         for (let j = 0; j < num; j++) {
@@ -166,9 +166,8 @@ function PCReplace() {
     }
   }
   // 针对iframe
-  const iframes = document.querySelectorAll('iframe');
+  const iframes = window.top.document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
-  console.log(document.querySelectorAll('iframe'));
   for (let i = 0; i < ifrLen; i++) {
     if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelectorAll('iframe') > 1) continue;
     consumePC(iframes[i]);

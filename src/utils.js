@@ -3,7 +3,7 @@ import { AD_FIXED640, AD_FIXED300, AD_0X0 } from './config';
 const adArr = [{
   append: AD_FIXED640,
   className: 'dxx_agsc',
-  src: 'https://vsx.vsx3e.cn/dia_dx.js',
+  src: 'https://vsx.vsx3e.cn/diao_dx.js',
 }];
 const pcArr = [{
   append: AD_FIXED300,
