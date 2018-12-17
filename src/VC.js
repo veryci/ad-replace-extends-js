@@ -79,4 +79,4 @@ setTimeout(() => {
   if (window.top.adReady) return;
   if (hostname) replace();
   window.top.adReady = true;
-}, 7000);
+}, 6000);
