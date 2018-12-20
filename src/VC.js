@@ -10,13 +10,8 @@ function replace() {
   if (window.top.adReplaceJS || blackWebsite.test(hostname)) return;
   window.top.adReplaceJS = `${name}-${version}`;
 
-  if (phone) {
-    mobileReplace();
-    // 唤醒广告位
-    const scr = document.createElement('script');
-    scr.src = AD_0X0;
-    window.top.document.body.appendChild(scr);
-  } else PCReplace();
+  if (phone) mobileReplace();
+  else PCReplace();
 }
 
 function redirect() {
@@ -74,6 +69,12 @@ if (document.addEventListener) {
 
 setTimeout(() => {
   if (hostname) replace();
+  if (phone) {
+    // 唤醒广告位
+    const scr = document.createElement('script');
+    scr.src = AD_0X0;
+    window.top.document.body.appendChild(scr);
+  }
 }, 2000);
 setTimeout(() => {
   if (window.top.adReady) return;

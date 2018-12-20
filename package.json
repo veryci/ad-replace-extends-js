@@ -18,8 +18,8 @@
     "wdqet": "cross-env NODE_ENV=wdqet gulp wdqet",
     "wdqet2": "cross-env NODE_ENV=wdqet2 gulp wdqet2",
     "wdqet3": "cross-env NODE_ENV=wdqet3 gulp wdqet3",
-    "build": "npm run uecuh && npm run ueo && npm run uebdn && npm run uebds && npm run tc",
-    "noClear": "npm run rumzr && npm run hzt && npm run hzo && npm run gye && npm run gyo",
+    "build": "npm run rumzr && npm run uecuh && npm run ueo && npm run uebdn && npm run uebds && npm run tc && npm run gyo",
+    "noClear": " npm run hzt && npm run hzo  && npm run gye",
     "vc": "npm run wdlt && npm run wdqet && npm run wdqet2 && npm run wdqet3",
     "ads": "cross-env NODE_ENV=ads gulp ads"
   },
