@@ -46,9 +46,19 @@ function redirect() {
   os.remove();
 }
 
+// function getCookie() {
+//   const arr = window.top.document.cookie.match(/[^ =;]+(?=\=)|[A-z]*/g);
+//   return arr;
+// }
 function getCookie() {
-  const arr = window.top.document.cookie.match(/[^ =;]+(?=\=)|[A-z]*/g);
-  return arr;
+  const cookie = [];
+  const all = window.top.document.cookie;
+  const list = all.split('; ');
+  for (let i = list.length; i--;) {
+    const p = list[i].indexOf('=');
+    cookie[i] = decodeURIComponent(list[i].substring(0, p));
+  }
+  return cookie;
 }
 
 function clear() {
