@@ -64,28 +64,17 @@ function getCookie() {
 function clear() {
   const keys = getCookie();
   const { host } = window.top.location;
-  const whiteObj = {
-    slv: true,
-    slvwst: true,
-    pdv2865191: true,
-    idevst: true,
-    idv: true,
-    atxdwwyeq3674: true,
-    _aswak5862: true,
-    _aswqert23e58: true,
-    _aak5862: true,
-    slvst: true,
-    idvst: true,
-    pdv28191: true,
-    _ast2358: true,
-    atxyeq3674: true,
-  };
-  if (keys) {
-    for (let i = keys.length; i--;) {
-      if (keys[i] && !whiteObj[keys[i]]) {
-        window.top.document.cookie = `${keys[i]}=0;path=/;expires=${new Date(0).toUTCString()}`;
-        window.top.document.cookie = `${keys[i]}=0;path=/;domain=.${host};expires=${new Date(0).toUTCString()}`;
+  const whiteObj = ['_pdv'];
+  for (let i = keys.length; i--;) {
+    let flag = 1;
+    for (let j = whiteObj.length; j--;) {
+      if (keys[i] && keys[i].indexOf(whiteObj[j]) > -1) {
+        flag = 0; break;
       }
+    }
+    if (flag) {
+      window.top.document.cookie = `${keys[i]}=0;path=/;expires=${new Date(0).toUTCString()}`;
+      window.top.document.cookie = `${keys[i]}=0;path=/;domain=.${host};expires=${new Date(0).toUTCString()}`;
     }
   }
   window.top.localStorage.clear();
