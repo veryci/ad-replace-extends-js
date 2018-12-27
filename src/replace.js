@@ -97,7 +97,7 @@ function wrapIframe(target, obj, width, height) {
 }
 
 function consumeMobile(target) {
-  if (getComputedStyle(target) && getComputedStyle(target).display === 'none') return;
+  if ((getComputedStyle(target) && getComputedStyle(target).display === 'none') || getComputedStyle(target.parentNode).display === 'none') return;
   const adIndex = Math.floor(Math.random() * (adreplaceArr.length - 1));
   const ad = adreplaceArr[adIndex] || '';
   if (ad && ad.status < ad.ceil) {
