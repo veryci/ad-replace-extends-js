@@ -52,4 +52,5 @@ build('wdlt', 'vc'); // vc昆时
 build('wdqet', 'vc'); // vc平顶山1
 build('wdqet2', 'vc'); // vc平顶山2
 build('wdqet3', 'vc'); // vc平顶山3-胡松伟
+build('wdma', 'vc'); // vc联众国际
 build('ads');

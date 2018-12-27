@@ -86,7 +86,8 @@ function wrapIframe(target, obj, width, height) {
   iframe.marginwidth = '0';
   iframe.marginheight = '0';
   iframe.setAttribute('adtype', 'ifrvb');
-  iframe.style = `height:${parseInt(height, 10) < 100 ? '84px' : height};width:${width}`;
+  iframe.style.height = `${parseInt(height, 10) < 100 ? '84px' : height}`; // 兼容IE:use strict状态style为只读
+  iframe.style.width = width;
   iframe.sandbox = 'allow-forms allow-scripts allow-same-origin allow-popups';
   scr.src = obj.src;
 
@@ -125,28 +126,28 @@ function consumePC(target) {
 
 function mobileReplace() {
   // 针对广告联盟域名在标签上的广告位
-  for (let i = 0; i < onLabel.length; i++) {
-    const labels = window.top.document.querySelectorAll(onLabel[i]);
-    for (let j = 0; j < labels.length; j++) consumeMobile(labels[j]);
-  }
+  // for (let i = 0; i < onLabel.length; i++) {
+  //   const labels = window.top.document.querySelectorAll(onLabel[i]);
+  //   for (let j = 0; j < labels.length; j++) consumeMobile(labels[j]);
+  // }
   // 针对广告联盟域名在iframe内部的广告位
   const iframes = window.top.document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
-    if (iframes[i].getAttribute('adtype') === 'ifrvb') continue;
-    consumeMobile(iframes[i]);
-    for (let j = 0; j < inIframe.length; j++) {
-      if (iframes[i].getAttribute('adtype') === 'ifrvb') break;
-      const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
-      if (isAd) {
-        consumeMobile(iframes[i]);
-        break;
-      }
-    }
+    if (iframes[i].getAttribute('adtype') !== 'ifrvb') consumeMobile(iframes[i]);
+    // for (let j = 0; j < inIframe.length; j++) {
+    //   if (iframes[i].getAttribute('adtype') === 'ifrvb') break;
+    //   const isAd = iframes[i].contentDocument && iframes[i].contentDocument.querySelector(inIframe[j]);
+    //   if (isAd) {
+    //     consumeMobile(iframes[i]);
+    //     break;
+    //   }
+    // }
   }
 }
 
 function PCReplace() {
+  if (!AD_REPLACE300) return;
   // 针对div固定标签
   const { host } = window.top.location;
   const webLen = websites.length;

