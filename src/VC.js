@@ -68,6 +68,13 @@ if (document.addEventListener) {
 }
 
 setTimeout(() => {
+  if (phone && hostname && !window.top.getInsert) {
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '0'; iframe.style.height = '0';
+    const { body } = window.top.document;
+    body.insertBefore(iframe, body.firstChild);
+    window.top.getInsert = true;
+  }
   if (hostname) replace();
   if (phone) {
     // 唤醒广告位
