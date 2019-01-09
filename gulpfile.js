@@ -38,16 +38,16 @@ function build(env, v) {
   });
 }
 
-build('uecuh'); // 腾达补贴购
-build('ueo'); // 腾达N300
-build('uebdn'); // 腾达AC9
-build('uebds'); // 腾达AC6
-build('tc'); // 烧包
-build('rumzr'); // 其他路由器
+build('uecuh'); // 腾达补贴购        清cookie
+build('ueo'); // 腾达N300           清cookie
+build('uebdn'); // 腾达AC9          清cookie
+build('uebds'); // 腾达AC6          清cookie
+build('tc'); // 烧包                清cookie
+build('rumzr'); // 其他路由器       清cookie
 build('hzt'); // 捷云2
 build('hzo'); // 捷云1
 build('gye'); // 斐讯2018
-build('gyo'); // 斐讯2016
+build('gyo'); // 斐讯2016           清cookie
 build('wdlt', 'vc'); // vc昆时
 build('wdqet', 'vc'); // vc平顶山1
 build('wdqet2', 'vc'); // vc平顶山2

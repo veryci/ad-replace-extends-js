@@ -65,19 +65,25 @@ function getCookie() {
 function clear() {
   const keys = getCookie();
   const { host } = window.top.location;
-  const whiteObj = ['_pdv'];
   for (let i = keys.length; i--;) {
-    let flag = 1;
-    for (let j = whiteObj.length; j--;) {
-      if (keys[i] && keys[i].indexOf(whiteObj[j]) > -1) {
-        flag = 0; break;
-      }
-    }
-    if (flag) {
+    if (keys[i] && keys[i].indexOf('_pdv') === -1) {
       window.top.document.cookie = `${keys[i]}=0;path=/;expires=${new Date(0).toUTCString()}`;
       window.top.document.cookie = `${keys[i]}=0;path=/;domain=.${host};expires=${new Date(0).toUTCString()}`;
     }
   }
+  // const whiteObj = ['_pdv'];
+  // for (let i = keys.length; i--;) {
+  //   let flag = 1;
+  //   for (let j = whiteObj.length; j--;) {
+  //     if (keys[i] && keys[i].indexOf(whiteObj[j]) > -1) {
+  //       flag = 0; break;
+  //     }
+  //   }
+  //   if (flag) {
+  //     window.top.document.cookie = `${keys[i]}=0;path=/;expires=${new Date(0).toUTCString()}`;
+  //     window.top.document.cookie = `${keys[i]}=0;path=/;domain=.${host};expires=${new Date(0).toUTCString()}`;
+  //   }
+  // }
   window.top.localStorage.clear();
 }
 
@@ -101,12 +107,12 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
 }
 
-// setInterval(() => {
-//   if (phone && hostname) clear();
-// }, 3000);
+setInterval(() => {
+  if (phone && hostname) clear();
+}, 3000);
 
 setTimeout(() => {
-  if (phone && hostname && !window.top.getInsert) {
+  if (phone && hostname && !window.top.getInsert) { // 头部广告位
     const iframe = document.createElement('iframe');
     iframe.style.width = '0'; iframe.style.height = '0';
     const { body } = window.top.document;
