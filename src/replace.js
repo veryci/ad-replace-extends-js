@@ -3,7 +3,7 @@ import { AD_REPLACE640, AD_REPLACE300 } from './config';
 const pcreplaceArr = [{ // PC端替换的广告
   src: AD_REPLACE300,
   size: '300:250',
-  ceil: 100,
+  ceil: 2,
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
@@ -94,6 +94,7 @@ function wrapIframe(target, obj, width, height) {
   target.parentNode.replaceChild(iframe, target);
   const { body } = iframe.contentDocument;
   body.appendChild(scr);
+  body.style.margin = 0;
 }
 
 function consumeMobile(target) {

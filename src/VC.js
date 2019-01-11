@@ -56,7 +56,7 @@ function handler() {
   }
   if (window.top.adReady || window.top.document.readyState !== 'complete') return;
   replace();
-  setTimeout(replace, 4000);
+  setTimeout(replace, 3000);
   window.top.adReady = true;
 }
 
@@ -87,4 +87,4 @@ setTimeout(() => {
   if (window.top.adReady) return;
   if (hostname) replace();
   window.top.adReady = true;
-}, 6000);
+}, 3000);

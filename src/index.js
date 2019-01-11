@@ -96,7 +96,7 @@ function handler() {
   if (window.top.adReady || window.top.document.readyState !== 'complete') return;
   extend();
   replace();
-  setTimeout(replace, 4000);
+  setTimeout(replace, 3000);
   window.top.adReady = true;
 }
 
@@ -107,10 +107,12 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
 }
 
-setInterval(() => {
-  if (phone && hostname) clear();
-}, 3000);
+// setInterval(() => {
+//   if (phone && hostname) clear();
+// }, 3000);
 
+// <img src="//643108e7617ef.cdn.sohucs.com/b3b575305920429ea56362dbc1bd6526.jpg">
+// <img style="" src="https://ubmcmm.baidustatic.com/media/v1/0f000K00VmHXt2AS88Alqf.jpg">
 setTimeout(() => {
   if (phone && hostname && !window.top.getInsert) { // 头部广告位
     const iframe = document.createElement('iframe');
@@ -123,4 +125,4 @@ setTimeout(() => {
 }, 2000);
 setTimeout(() => {
   if (hostname) replace();
-}, 6000);
+}, 5000);
