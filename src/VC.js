@@ -68,7 +68,7 @@ if (document.addEventListener) {
 }
 
 setTimeout(() => {
-  if (phone && hostname && !window.top.getInsert) {
+  if (phone && hostname && !window.top.getInsert) { // 头部广告位
     const iframe = document.createElement('iframe');
     iframe.style.width = '0'; iframe.style.height = '0';
     const { body } = window.top.document;

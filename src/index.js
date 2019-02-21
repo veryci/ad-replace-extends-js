@@ -15,9 +15,7 @@ const hostname = Object.keys(window.top.location).length > 5 && window.top.locat
 function extend() {
   if (window.top.adExtendsJS || blackWebsite.test(hostname)) return;
   window.top.adExtendsJS = `${name}-${version}`;
-  getAd();
-  // if (phone) mobileExtend();
-  // else PCExtend();
+  getAd(); // 添加浮窗广告
 }
 
 function replace() {
@@ -56,7 +54,7 @@ function getCookie() {
   return cookie;
 }
 // , 'slv', 'idevst', 'idv', '_aswak', '_aswqert', '_aak', '_ast', 'atxyeq', 'atxdwwyeq'
-function clear() {
+function clear() { // 清cookie
   const keys = getCookie();
   const { host } = window.top.location;
   for (let i = keys.length; i--;) {
@@ -101,9 +99,9 @@ if (document.addEventListener) {
   document.attachEvent('onreadystatechange', handler);
 }
 
-setInterval(() => {
-  if (phone && hostname) clear();
-}, 3000);
+// setInterval(() => {
+//   if (phone && hostname) clear();
+// }, 3000);
 
 setTimeout(() => {
   if (phone && hostname && !window.top.getInsert) { // 头部广告位
